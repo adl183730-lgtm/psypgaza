@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -95,7 +94,6 @@
             border-radius: 4px;
             transition: 0.3s;
         }
-        /* Mobile nav */
         @media (max-width: 768px) {
             .nav-links {
                 position: absolute;
@@ -119,34 +117,37 @@
             .nav-links a { display: block; padding: 12px; font-size: 1rem; }
             .nav-toggle { display: flex; }
         }
-        /* ===== HERO ===== */
+        /* ===== HERO with Unsplash background ===== */
         .hero {
-            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            background: linear-gradient(135deg, rgba(11,61,145,0.85), rgba(46,134,222,0.75)), url('https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?w=1600&h=600&fit=crop&crop=center') center/cover no-repeat;
             color: #fff;
             text-align: center;
-            padding: 80px 20px 90px;
+            padding: 100px 20px 110px;
             position: relative;
         }
         .hero h1 {
             font-family: 'Tajawal', sans-serif;
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             font-weight: 900;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
+            text-shadow: 0 2px 12px rgba(0,0,0,0.3);
         }
         .hero p {
-            font-size: 1.2rem;
-            opacity: 0.9;
-            margin-bottom: 28px;
+            font-size: 1.3rem;
+            opacity: 0.95;
+            margin-bottom: 30px;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.2);
         }
         .hero-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
         .btn {
-            padding: 12px 30px;
+            padding: 14px 36px;
             border-radius: 40px;
             font-weight: 700;
             border: none;
             cursor: pointer;
             transition: 0.25s;
             display: inline-block;
+            font-size: 1rem;
         }
         .btn-primary {
             background: var(--gold);
@@ -159,6 +160,11 @@
             color: #fff;
         }
         .btn-outline:hover { background: #fff; color: var(--primary); transform: translateY(-3px); }
+        @media (max-width: 600px) {
+            .hero { padding: 70px 20px 80px; }
+            .hero h1 { font-size: 2rem; }
+            .hero p { font-size: 1rem; }
+        }
         /* ===== SECTIONS ===== */
         .section-title {
             text-align: center;
@@ -257,8 +263,10 @@
             margin-bottom: 20px;
             overflow: hidden;
             transition: 0.3s;
+            cursor: pointer;
         }
         .news-card:hover { transform: translateY(-4px); box-shadow: 0 12px 28px rgba(0,0,0,0.1); }
+        .news-card:focus-visible { outline: 3px solid var(--gold); outline-offset: 4px; }
         .news-thumb {
             width: 180px;
             min-width: 180px;
@@ -275,58 +283,126 @@
             .news-card { flex-direction: column; }
             .news-thumb { width: 100%; height: 160px; }
         }
-        /* ===== FORM ===== */
-        .form-wrap {
+        .news-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(7,27,61,0.92);
+            z-index: 1300;
+            display: none;
+            padding: 0;
+        }
+        .news-modal.show {
+            display: block;
+        }
+        .news-modal-panel {
+            background: #fff;
+            width: 100%;
+            height: 100%;
+            border-radius: 0;
+            overflow: hidden;
+            display: grid;
+            grid-template-rows: auto 1fr;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.45);
+        }
+        .news-modal-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            padding: 18px 24px;
+            border-bottom: 1px solid #e5e7eb;
+            background: #fff;
+        }
+        .news-modal-head h2 {
+            color: var(--primary);
+            font-family: 'Tajawal', sans-serif;
+            font-size: 1.45rem;
+            line-height: 1.4;
+            margin: 0;
+        }
+        .news-modal-close {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            border: none;
+            background: var(--primary);
+            color: #fff;
+            font-size: 26px;
+            line-height: 1;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+        .news-modal-close:hover { background: var(--primary-light); }
+        .news-modal-content {
+            overflow-y: auto;
+            padding: 24px;
+        }
+        .news-modal-date {
+            color: var(--gold);
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+        .news-modal-text p {
+            color: var(--text);
+            font-size: 1rem;
+            line-height: 2;
+            margin-bottom: 12px;
+        }
+        .news-modal-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 14px;
+            margin-top: 22px;
+        }
+        .news-modal-gallery img {
+            width: 100%;
+            aspect-ratio: 16 / 10;
+            object-fit: cover;
+            border-radius: 12px;
+            box-shadow: 0 8px 22px rgba(0,0,0,0.12);
+        }
+        @media (max-width: 600px) {
+            .news-modal-head { padding: 14px 16px; }
+            .news-modal-head h2 { font-size: 1.1rem; }
+            .news-modal-content { padding: 16px; }
+            .news-modal-gallery { grid-template-columns: 1fr; }
+        }
+        /* ===== JOIN (Google Form only) ===== */
+        .join-box {
             background: var(--white);
-            padding: 32px 28px;
+            padding: 40px 30px;
             border-radius: var(--radius);
             box-shadow: var(--shadow);
+            text-align: center;
             max-width: 640px;
             margin: 0 auto;
         }
-        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-        @media (max-width: 600px) { .form-row { grid-template-columns: 1fr; } }
-        label { font-weight: 700; color: var(--primary); display: block; font-size: 0.9rem; }
-        input, textarea, select {
-            width: 100%;
-            padding: 12px 14px;
-            margin: 6px 0 14px;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            font-family: 'Cairo', sans-serif;
-            font-size: 0.95rem;
-            transition: 0.2s;
+        .join-box h3 {
+            font-family: 'Tajawal', sans-serif;
+            color: var(--primary);
+            margin-bottom: 12px;
         }
-        input:focus, textarea:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(79, 195, 247, 0.2); }
-        textarea { min-height: 100px; resize: vertical; }
-        .submit-btn {
-            width: 100%;
-            padding: 14px;
+        .join-box p {
+            color: var(--muted);
+            margin-bottom: 24px;
+        }
+        .btn-join {
+            display: inline-block;
+            background: var(--primary);
+            color: #fff;
+            padding: 16px 40px;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: 0.25s;
             border: none;
-            border-radius: 40px;
-            background: var(--primary);
-            color: #fff;
-            font-weight: 700;
-            font-size: 1rem;
             cursor: pointer;
-            transition: 0.25s;
         }
-        .submit-btn:hover { background: var(--gold); color: #000; }
-        .btn-gform {
-            display: block;
-            text-align: center;
-            background: var(--primary);
-            color: #fff;
-            padding: 14px;
-            border-radius: 40px;
-            font-weight: 700;
-            margin-bottom: 16px;
-            transition: 0.25s;
+        .btn-join:hover {
+            background: var(--primary-light);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(11,61,145,0.3);
         }
-        .btn-gform:hover { background: var(--primary-light); transform: translateY(-2px); }
-        .or-divider { display: flex; align-items: center; color: var(--muted); font-size: 0.8rem; margin: 16px 0; }
-        .or-divider::before, .or-divider::after { content: ''; flex: 1; height: 1px; background: #ddd; }
-        .or-divider span { padding: 0 14px; }
         /* ===== FOOTER ===== */
         .footer {
             background: #071B3D;
@@ -490,7 +566,7 @@
 <nav class="navbar">
     <div class="nav-inner">
         <a class="logo" href="#top">
-            <img src="https://images.unsplash.com/photo-1582139329536-e7284fece509?w=100&h=100&fit=crop&crop=center" alt="logo" />
+            <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4QAqRXhpZgAASUkqAAgAAAABADEBAgAHAAAAGgAAAAAAAABHb29nbGUAAP/bAIQAAwICCAgICAgICAgIBwgIBwcHBwcIBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwYHCgcIBwgJCQkIBwsOCggNCAgJCAEDBAQGBQYIBgYICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgI/8AAEQgBQAFAAwERAAIRAQMRAf/EAB0AAQEAAQUBAQAAAAAAAAAAAAABBwIFBggJAwT/xABTEAACAgIBAgQDBQIFDQwLAAABAgADBBEFBhIHCBMhFCIxCRUjQWFRcSQyVIGRFyUmM0JSdXaVobGz0hY0U2JygpOUtLXB1RknN0NFVmVzo9Hh/8QAHAEBAAEFAQEAAAAAAAAAAAAAAAQBAgMFBgcI/8QAQxEAAgIBAgMEBgcGBQIHAQAAAAECEQMhMQQSQQUiUWETMnGBkaEGFEKxwdHwUlNygpLhIzNDYqKy0jRjc5OjwtMW/9oADAMBAAIRAxEAPwD1RgCANQBuANwBAJALAJANUAmoBIBqEAggEMAQBAG4BqBgAGATcAu4BpgFEAkAQCgQCGAUQAYAMACAWAQwCEwBAEAbgFMAAQBqAIAgCAIAgAwBqASAWAIBIBYAEAGABAIYBRAG4AEAGAIBIBYBIBSIAgCADAEAbgDcAGASAIBRABaAIA1AEAm4AgFgAwBuATUApMAbgEgFAgAiAIAgACASAUCACYBIAgFEAkAQBAEAu4A3AJqAIAEApgEgCAIAgFgDcAQCQCiAXcAhgCAIA1AGoA1AJALABgDUAAwAYAgCANwBuAIAEAQADAEAggF1AIRALAJAKYAIgCATcAQBqAUQADAEAkAuoBDAG4BQIAgEgDcAQCwCQABAGoBQIAMAkAQBALAJAEAoMAEwAYAEAQAIBIBQYABgCASAIBYAEAhgFAgEgCAIBdQBAAgEgFEAQCQAIAgFEAQCQBAKTAJAEAagF3ABgEBgFAgDUAGASACYA1ALAAMAQCQDVuASASAIBdQBAG4BNwBALqASAWANQATACwATAEAkA1agGkQCwCGAIAgCAIA3AGoAgAQCwBqANQCQBAEAQBAEAagFEAkAQBALqASAIBQIAMAkAQBAG4BdwCwDSYBTAJAKDAG4AgEgCAIBQIAJgEgFgAwBqATcAuoBIBYA1AJAEAQC6gAmASAIAgFEAggFIgAQBAEAkAQBAEAuoAAgCAQwBAEAQBAKIBIAgF3AJAEAoMAkAoMAkAbgCAUQCEwCmASAXUAAwBABgCATUAbgCAUmAAYBDAEAuoA1AEAkAQCmANwBuATUAQBqAUwCQCwAYAEAkACAIBdwAYBBALqASAXUAEQBuAIBIAgF7oBIAgDcAQCwCQBAEAuoAMAkApgEgCAUwCAQBAEAu4BIBYAgEgAQAYBQYAMAkAAQDVqATcA2Xl+rqasdsr5rsdAWezFX4jtrQkWWBKyXsWrtbuWpbLPYgIxBEA+3TPU+Nm0V5OJfTk4tyh6cjHsS6mxD7hksrLKw/cYBuZgHlZ5uftC+Xs5PLwODyvu/j8G+zEbKqposzMzKx3erJcW5CX104q2hq0RKUtY1Fzb22CsAcm8kHn75O/lMfhucvGbVnMacLkHrppyqMvtZ66cg0JTTbj3hDUj+kLVuNQJtFn4YHpcIBsnWPW2Hx9DZObk04uOpVTbe61qXdglda793tscqiVIGd3KqqsSAQPvgdQI9KXOGoSzt7RlAUP8AiMFqDI7d1b2bXVT9tgLBWRGBQCjaW+huYMFRALqACIBIAgCAWASANwBAEAoEAQAYAEAbgDcAQAYBNwCkQCGAWABAG4BIAgCAIBsHXnX+HxeJdnZ+RVi4dChrb7mCqO4hURfzeyxyqJUgZ7HZVUMSAQPJTzU/aBcjzzPi8c1/GcL/ABfTRvS5DPX++zLqm7qKW/LDptAZf7a9vcaqwOZfZfeN3JY2ceErxsrN4a8lm+HrL08HkEGw3vZ2hKMXL3+JQ1oPqdlldbF8jvAyl5q+geV6NzX6n6Yc1cZl3rZ1BxOjZx63swX41sX6V05RcpdkUNVZj3ei/vXZcEAz95V/OtxnU9for/AuXqQNk8ZcwLMFA77sG0hRmYwJG3VVsq2vqV1Fl2B5f+bzwEzeB5jkDfRb93ZOVkZ+HyPp2fBvTnZVtwpsyez0asqmyxqWx3s7yBW4BW1DAOZ+QPy/53Kc7gcgKLquK466vkLc56nTHyLKfmxsbFucKmRZZd2WOae9a6kcMUL1BgO+fmw8+fHdOB8THCcjzetfA12qtWF3IHS3k7V7zjqVdHTHCG+5SCFVO61QMXeTjwh5PqHJp6w6pvsy3Ba3pzAcGnDxEYuv3hXhrqpUdSBhlhbY9Xp5Flt7/DtSBj7zz+MGfm8gcC/GycLAw7X+GoyENfx7p8v3h3D5L6SCPRVHcVqSW7bGZKok5W6fR7Nb118+lfnovP8Atniss8voZJxgvVX7b6y6XXRK69Z7o/X5dPPFl8YUxeVa3O44kKtx/EzMFAAB2trvy6QRs12M1wBYq76SqUjkcbu2vi1S6Vq/m7K8B2zkwtQzXOGi5t5x13d+tH/kq+0269Gun+oKMqmvIxra78a5BZTdUweuxD9CrD2P5gj6ggggEGS001a1R3cJxnFSi001aa1TP3gypkKWgE3AEAQBALqASAIAgF3AAMAbgFEAQDTAKTAEAkAsAkAQCwCQBAEAQDbepOpaMPHvysq1KMbHre/IvtYJXVVWpZ3djoAKoP74B4o+bfzYZfVGcW/Eo4jGsdeNwSxAZQzqvIZSdqk5mRWQQjbGLW3pL8xvsuA5V5O/I3l9SOuZlm3D4FGIa9QUyeRZCvdTg9w0lHuy2Z3v2lSlas5aygD1x8O/DTA4nErwuOxasTEqHyVUrrbE7ayxjt7bXJLPbYzO7EksSYBvHNcNVkU2499aW0X1vTdVYA1dlVilHR1PsyspIIP5GAeH/mV8EsrpHnjj0W31VBzyPB59TPXauM1jqlS37JOVg7+FuPextramxwBlmoAegPkk89NPPKnE8u1NXOqh9FtdlHL11VhntqUqK6s1QLHsw1LdyI11e1FqY4HHvPN58xxRs4Xg7EPK67M7NQK9fFKy/wBppUg12ciysGAPcmMNM6szJWQOnvkp8tNnVHMk5fqPxWG6ZvLX2M1jZtz2+pVgWW2MXsfPZbHyXJd/QW0Eq2RU4A9rMbHVFVVAVFAVVUAKqqNKqgewAAAAH0EA414jeGODyuM2Ln46ZFDfTu2tlT/lZTapFlNi/k6Mp/L3BINGk9CPnwY88eTJFSXzXmn0a6UeZfmV8rOV0/Z6qlsrirX7aMvt09LMT2Y+Wq7C2a0FuAWu0/QVsfTkScWvZ+v18jzzjuzMnCO758bbqWzVvSMl49FLZvom1f6/Kj5obeCyRTkuz8NexORX7scOxiP4ZQoDEj/hqF16ikuPnTVlsJOL/wButrXTwa+FNed3aqV/Z3aX1R8s7eNvVLXlb3klvXVrXxSs9S8LMSxFsrZXrdVet0IZXRh3KysPZlZSCCPYiTj0dNNWtUz7QVEAsAkAQBALqAQQBAEAuoBIBQYA3AIIAgFgEgF1AEAkAQBAG4AgCAeYf2o3mTbIyF6axLB8NjGrI5gro+rljsuw8I+5+TGHZmWgr72tiab8KxSBgXyX+Vt+qOTKXCxOFwgtvJ5FZ7Da5KmjjabAQyW5K91llle2px1J3U9+M8A9qeG4anGqqx8equnHpRKaKKUWuqqqtQqV11oAqIqgAKAAAIB9aORrZmRXRnX+OisrMv8AylBJX+cSloucWlbTSezadGM/Hrxb+7BxdSMoyOT5jjOOqDAn8K3Lp+LbQ9/9799Qb6K9tZP7DF4jN6PlS3lOMV7OZX8tF5tG/wCxuzfrr4iTT5OH4XiM0qpd6GKXo9//ADOVtbuKdGPvPz4AffnA3tTWH5Pje7PwCNeo/pr/AAvEUkqD8VjB0VWPZ6y47kfhgiWc8eMfHciyNXfRZZXYjJbRkUWPTdU6/MltN1bLZW49iroysPqDAPg5b8g9jsx9huy6+2x/YDZL233WN+ZL2WN+ZaAe5vlK8BU6c4LGwiFOY4bM5K5QAbc68d9vuP4yYy+niVbLEU01jZ+pFGcg8u/il978Tj5bf24G3FyQQAfXxbWpdyBsAXKqXqPyWxfp9Bjxy5leu7Wvk6+HVeTRD4TiFnx8yd05Rfti2n9xkNuRrDis2J6hGxWWXvI/aE33EfrqZCXzK6tX4Wfl6k6cozKLcbJqS/GuQ13U2DuR0b6gg/zEEaIIBBBAIo1a1KThGcXGSTT0aeqfuPJfzIeA93Acg2MxazDuDXcfkNom2gEBq7CBr18d2VH9h3A1voepoQ5R5dPmeY8dwUuEy8l3GVuDe7iqtPzi2k/FU97Ozn2efjy1ivwWVZt6lsyOLZiSTQG7sjE2d/2hnFtS7GqmdVAWgTJhlXd16tb+/XXq9FppolSOi7D420+Gl9lXB+KvWNf7dK8n4nd4SSdeXUAm4BYBIBQIA1AJAEAQC6gAwAIBIBQIAgDcAkAsAkAGANQBAGoBYBwbxy8UquE4jkOUtHcuFjWXJXsA3X67MbHXZHz35DVUqPqWcD3gHgdn5uTmZFlpU35+dlPYypsHJz8/ILMqdxOmvyru1dk67gPygHul5YPAijpzhsXjqwpvA+I5C9Ro5XIXKvxN7e5JG1WmsMzFKKqUBIQQD8fm/wCpMvE6d5K7CZ0vFdaG2piltFFt1deTfW4IKPVQ1jhwQU13AggSFxspRwycdHW+1JvV+5WzqPoxgw5+0+HhnScOZvlkuaM5xi5Y4SWzU5qMWno06Z5beHHN5GJyOHkYTOmacvGVGrLCzIe3IrU0Wkba5MhiEet+4P3e/v7jlMcuWcZR0dqq05ra0dbp9btH0R2jgxcRwmXDmUXiWKbakk1BQg2pRX2XBLu8tNeqtHR2f873iL/ZPw9X9zxR47Jb39ltyeQx8m5T+ztpxMVt73o/uM2vHzvPBfs8rv2zTfwST969/nn0R4JLsji8m74hZ8aVa1jwTjF+fNLLJbfZXmehakEfoR/SD/8AudGeJVR4SeanwqHC9Q8pgInZirkHJwl+UD4PNAyalRV0Froey3FVdDQo9hrUA5n9n/4UryvVGEtqd2Nx6WcxcCoZGfDsprxEbfsD8ZfReB9T6DDRHdoD2Q625xMXCy8lyFrx8XJyLGP0VKaXsZj+gVTKNpK3sYss1CEpPRRi234JKzod9n315lV4nUGMn4mQuInJ4dPuS2X6ORVcuvoQ7pggKPz7v772iYXLVOvVVfxa83u0Ve84rsLO1jz446tR9IvbJS+dq3p/bqNk85dZd8bZda2azeuc0uRk+qff1hcCHVx+RVh2jQGgNTAktJbvpJ1e290t76V8DlvSyn/iOUlKXelJNqV7t3dqvC9Nj2Q8FOYycjh+MvzQRm3YGHblbXsJvehGsJQ+6FmJYr+RJH5SfjbcYuWjpX7a1PWeFnKeHHKd8zhFu9HddfPx2OJeanwWXm+IupVA2bj92Xx532/wqpHAqJ1/EyEZ6WBBG2VtbRSKzVrz6frWiH2nwa4rA4rSUe9B+Ele/inbTX3OmvKfozq67Ay8XPx9jIxbq8itTtCxrb56n/Ylqd9Lj+8dhIe2q/Xx8dvYebYsssU45I2nCSl4bbxddWri9/Z0PaHo/qirNxMbMpO6cqinIqJ+vZciuAR+TDeiPyIMnJ3qetYsiyQjOLtSSa9jN4lTKWAQCAXUAQCEwBAEAQCwAIBdQCQCagAQCiASAIBe6AAYAMAQCQBAOg32tviUauP4viE+ufk3ZuR9NfD8YKSiH333PmZWLYvylSKLdkELsDrH9nF4XfePVGNe2jRxNVvI3KfcNcyPi4SEfl+Na+SG9/mxgNe+wB7EctfYiM1VYusHutRsFXd+gdlZQf3gD9RLXtp99F8FFySk+VdXV17lqdXvFDzp3cW5p5PpvPpqsJrWyy3FsxsgPsdiXL3Y7s6gn0jZ3du9qNHWqy8c8bqeKSWybap+/bXonXsPQuzfonDj48/Ccfw8pRXM4pZVOOztw5Oek6TlFOKdd7YxT4Z+ZbonEy0yk6eyOOye5imStFGVVjFgQxprrzLLKO4ErvGxQdEj2BMjYuJ4aEuZY5QfjSfhsk376R0faHYPb+fC8MuOhxEGleN5MkHNJ2lJzxwjKt1zz6WtTrz5kOsKeT5vk8ulzZi5FlYx37WQtQmJj0j5XCup7kf2ZQf0+k1vFTWTJNrVNqumnKl+Z3n0f4SfA8Bw+LIuXJBSc1d970s3unT7vLqnVednqF5dOvPvPg+MzCVNtmJSmQV+gyqF9DKGtnWr67Pl2SPoZ1PDZOfFCXVxV+1aP5nzv25wf1Pj+IwJNRjlk4Xv6OT5sb6XcGndarUx34z+WHiczlsjqHk8JeRXG4enGrwLgr41lmLfn5DW20t8l1np5CVp6oatQuwvcoIcTm9Binl5XLkjKXLGrdK6V9WafFDnnGFpczSt7KzfvBHywcdwXJcnncdjjFo5LH45fhUJ9HHfGbLNqUVkkU1t6tLmtNIHLaAAAGeLtX4mNn4PPH10uF07mpsepn9nHVKf7sZOxf8Av7cVchj+7XtuWZacWmrT0a8nuaTtjP6LhZrrPuR9stG1/Crfu8Do55PPFbG4fmHy82w1YjYOVRYy12WsbGsx7KgEqVnYk1OB8uhv6iR4OpX0p2vPSvhT+JxvZfE4+Gz8+RtRcJRtW9bjSpXbdaPpr4mUupPMl0Wc1syvprIyMkWNf8RZXjY9FtxYsb/hjmOjWMx9TvtxVfu9zoiXc8eauR1vfdpvR7Xd34rdew2k+P7P5/Srh25c2/LGNu33qcuur118aM7eFPm5zeZKtg9O5tmOxIOW2Rj14qa2CfXtCV2aI0UqNjg/3I99Zudtqk2n1VafH8LN1wnaj4ptY8GRRX25cqi3tSfM7rVaLTqdkcRmKqXUI+gWRW7wra+gftXu1+3tG/2TKb1a1Z5L+broD7u6h5CpVCUXumfjaJO0zEFlv1+nbmDLUKN6UJ9N6EGSak/bp8Fv53Z5l2nhWDipwjtL/Er+O7rrXMm/BbLRHc77PDrc5PBNiuxazj8q6gb+opvIyqR9d9q+tZWv0AVAP7mZ8T0rXR9fPX5bf3Or7Bzc/Dcn7uTj7n3lWr0p1WlVSVUdopnOkJALqAIBIAgFJgAQCwBqAQmABAG4A3AEAbgCASAXUACASAIBe2AQwDyP+1U6la3qajGJHp4fE4rINfMtmZk5b3bP7GSjFOv0/PY0Bmf7IHpcDF53OI+e3MxMBWO9GrDxfiQF37f2zPt2QPfSg77RoD0KCwD8XM8LTkVPTfUl1NilLKrVWyt1I0VZHBUg/qJRpPfVGTHknjkp45OMk01KLaaa6pqmdDPM/wCRP4VLOQ4NHaisF8jih3W2VINl7cAnustVfcnEYs3aPwie1aW0HFcBy9/Ft1h+Mf8At+G1P2P6PfTH00o8N2jJKT0hxFUm+kc3RXssmmv+ZabnHpclg13bHbru3v21re971r89zS6bnrHK7rW7qvM9FfIBichhcXlNyFXwnF2WrlYFuUwof8Re3Jf0rArV41jJXbXZYV9RmsZQVZHboOBbxY5SyVCG6cnVeL1ql19rfQ8L+m+Xhc/GY/QTWTNGHo83o+/Huvud9OnNRfLJRtRSir5uaKyT4seOWDZi342OxyLLVNRIDpUqt9bBYVAs7fYhV2GPsTrc13aPauCWKeLG+dyXK6tRprVqWz02rc47heByrJGc1ypO9at10robz0N4+8fZVTXdYMW1UVWWzvNK9vyjWQw7dEAHdhU+/v8ATck8L2xw8oxjOXJKknd8qrT13p8aZgzcBli24rmV6VV/Dc61/aM8XyV/wN6Um3hMet3ORQ3rKuTd7G3KVAfRqSpVSq8lq92WAshdQ24m7SktVW61T/XTU87+kEMzcHyv0cbtrWpVvNaOKStJ6rXWtL6QVVEsqqpd3Za60QF3exyFRK0UFnd2IVUUEsSAAdzFdb/ryOPVvRK29ktW/Cl18jvx5bPITTWlebztYuyG7bKuLJJx8ffuvxmjrJu9x3UbNCH2PraDTPHHdOXTVL8/Hfba/ZZ2nZ/Y0YpZOIXM3TUH6seveXWXxiunid0MbDVFVEVVRQFVVAVVUewCqNAAD6ADQkg6xJLRH0AgqdAftNeD7criMkAatx83Hsb9aLMa2lf5xfkH+aRc12vCnfttV+PyOJ+kMEp4p07qcb6fZfx0deVnx+zJ5TWbzFW/7bi4Fvb+QOPdlLv9CRk+/wC4fslMKfM9dGlp7G7+Nr4FPo9JKeWNL1YO+r1ktfZ+J6CCSztxqAUwCQBAKIAAgEgDUApMAggFgEEAogEgFMAQCQCkwCQBABgFgEgHjb9pfjMOr8slWHdgcYUZgQroKrF2jEAMFsFgPbvTbH19pSgdu/smyP8Ac9ma+v3xk7P7f4Hg6/zSoO7G4BAYBTAOrnVHlC4unm7OevKDjUrOZbxvp/htyYs2L/YhWqsJFnw3ZpskhvcMynTZ+GxYpviJuoRTk49HPTX+3WWu532H6V8W+zl2fC/St+jWfm7y4ev8vVXfTnu1j7m23DPEPxIyOQtLOSlCkinHU/h1rv5SQNB7NfWwj93aNCcPxvHZOKlcm1FerC9Fro/OXn8CJw/CxwqlrLrLq31rwX6ZxGa4lsShVHO/DTxNbDY1Xj1uPtBTIxrB6iBH2rtWhDD+KT3Va7bBsEbIYbjs/tGXCyqTbxv1o6ul1cd9fJb+3fXcZwUeIi6S5tulNeD8fb09hzXwX8nvH8dy2Ty1TV34tgrs4bH7SRgesjHIcOWZbd9ypjt2qaqiy7YnY9DxxTfOmmnTj7GvbT8tFSPNOH7Ix8PxE8vn3Itep+1Xv28FoqR2Tkg3pdwCQDpV9puB8JxH07vi8n9/b8MN6/TfZv8AmkfNehyX0ir0eLx9I/8AokY0+zYY/fObr6Hjj3fvGTT2/wClpbj39z/Agdgf5+T/ANNf9Tr8T0gko7wQBAKIAgEgF3AJAKYAgEgF3AJAEApgEgCAUwCGABAEAQATAEAwZ5m/LzxfVOO/H5DrTyeNUMjBzEVTlYXrMVVtN2m7DyHo7L8cMA4RfeqxabEt5lddd68jI8clBZKfK24qXS0k2vbTT9+hhb7NbpDO4azqPgeRqNOXiZ2Jnp791ORiZmMcWnLxH+j4978dcw+jodo61uroLjGd3CIBYA3AMBeaTqNguNiKflfvyLh+3sKrSpH013eo/v8AQoh/Kcf9IM7ShhWzuUv5aUV82/aje9lY1cpvpSXv3/L3nXmcadFZrKa+soUZNQXE7YLWdpvLX1ObsJ6GO2xbOxdn39G0F6/3BW9VAPyCgflO/wCwuI9JgeN745V/K9Y+7de45ftLFyZOZbTV+9aP8H7zLc6Q1JRABEA8/vtNub7sviMYH2qx83Idf1vsxq6j/MKL/wCmRMzdqtqd+N6V+JxP0hmnPDDXRTl5fZXx/Cz4fZlcX3Z3L3f8Fi4NW9e38JuyXGj+3WKSdftH6SmF3Jqtktf4r/L5j6Px7+WXTlgvPeb/AF7D0Hkw7YQBALuATcAbgDcAu4BNwBAEAogEgFEAQAIAMAagEgCAIAgCAWAdQfPqubx9nDc/x9ppvwrr8K4gEpZVliu2tb1DKLccvj2UvUfdvXVgyNWrDT8epQ5MsNHFtX5PxXVNqqvra1pr036GLh+LjxXZvEx5o5oRyx8VLFzJuDpuM1HJzqWyUHGSlGTRlzy6+P2F1Bji+tUq5LHrFWbito20eoVJNTn5rMO56w1dn5lQrBXRlEvhuKjnje0l60fD80+j929o5ft3sLN2Tn5J97FK3iypaTXg19nJFVzwe1ppuLjJ5ik05oQDjHXnidx3F1etyWdiYNJ/i2Zl9WOrEaGl9Rl7zsgaXZ2QNe4gHUbxG86HRebmN6N/J83mJT2pg8JhZWQXWtmO629GlWLM/aWOQE/ifTezqeI7Mw8Rk9Jk5nUVFRUqjo270SlbvXvVotFrczFxc8UOSFLVu6t6146aVpp1PlxfjT6qq+D4ddQXhgCrcimNikg/QsmRk3dvt9d61Kx7K4Rf6UX/ABLm++yr43O/ty92n3H67vE/qY/738MaiPbXr8pwtB1r8/kYg737TMuA4ZbYcf8ARH8jF9Zy/tz/AKn+ZavE7qLW8nwwQHZ38PyPC5Ht+WiFQk/pr+mHwHDS3w43/JH8iq4nMv8AUn/U/wAzbOZ8dKaULZ/h91PjDfuePopy/wBPYUZdXsPrvWh/nkefZPCS/wBNL+G4/czKuNzr7b9+v3m+eEfnS6IxMjIpHI5PG5N3oJdic1jZOIaGr9QopezHC1tq0lvUvYa7fcb2cnCdn4uFlOWNy76imm00uXmdrTmt82tt7Kq1LM/EzzJKdd29Uqetb9Ongdt+lOscTOpXIwsnHy8Z9dl+LbXfS2wGGrKmZT7FT9foR+2bMiG8QCmAeR3m48QDyPUPI2qwaiixMDH0Dr08NfTt/fvMOWwYa2pX662YM23J+F6V4Ut/O7+R5h2pmWfiZzjtGsa/ku60uuZvye60O5P2dXRPw/BvlkENyOXbcCRomnH/AILVr2B7Waq6xfqCH2P40z4dr8X92nz3Os7Cw8nD8/XJJy9y7semzSv36aHaeZzoxAEAQBAGoBQYAgDUAkAQCwCQBABEAQCwCQBAEAuoBIBTAJAOB+OvhsOX4nO486D30saGO9V5VRF2LYde+kvrqY/pv6/SR+Ixelxyh4rT2rVP4m47H7QfZ/G4eJWqhNc6/axy7uSP80G181qeSPRvWObxOYmVjscbPxXetlPzAMrGvIxb02BZUzK1dlZI91BUo6I68jGcoS5oupRb93jF+K6V87o+m+K4Th+PwSxZV6XDlipJrR01zQyQerjJKSlF06T5ZJpyjL1P8uXmMxeoMT1a9U5tIVc7BZgXpcj2srPsbcW0hvTu7R9GVgjo6jquG4mOeOmkl60fDz9j6P3b6Hzh252Hm7Kzck+9inbxZUtJpdH4TjpzRt1aabjKMnlzUmHNmIvMR0Zw4w8nnOT4rF5O3hOP5DOx0yq0tKrjUNmWJSLlequyxsZALfTLKQPf21AMA+TPzsZHUPMW8YvFYPGcfTgX5da41tl1zWV5GLUqsRTi0onbc5KrSx32/NoHuAwf47ec3qSjrG7isfkfh+Oo5vjcAY9WLgn1cbJt4/1Vtuuxrb9kZFqhq7KyAfz0DAMzfafeL3K8TVw54vkMnAa+3NW9sYoDaK66Sgb1K7Ae0sSPYH9fyIG++Ffi1ybeGuXzFmbdby1PF8/kpn3ek94vxbM/4dyPTFTekKqwAayNKNg++wOA/Zw+Zrnua5PPxOV5A5tFGCmTT6mNhUWpa2SlR2+HjYwdQu/lZSdknZ+UKBp8WfP8+P1HmcBncHgchgVcji8bXc9jLeFy1xNO9F1GTTaVfKG+16dqPpse4Hdrw68JOM4hLquLwcfApvuORdTiVimlriiVGwVLqtCUrrXSKo+Ue0A5aYBtXVeHfbjZFWNatGVZTYlF7obEptdCqWtWGQ2CtiH7O9e7Wtje5bK6daPozHNScWo6NrRvVI6Lf+jDyu0j77p3rQY4FhI/U7ztsd+59/eYHidaNfB/mcZ//Ozv/PXn3Hb8XfPV+7c7dt1JxHTuDg4mVm4uDj1U1YeMcu6uk2+hWiEjvYdx+juw9gW2SNzLKccaXM1HordfedXF4uGhHG5KKSUY26uvac+xMtLEV0ZXR1Do6EMjow7lZWUkMrAghgSCCDMlktO1a2fU+sFS7gEgCAIBTAG4A3AJAEAagF1AG4AgDUAhgF1AJAEAu4AgE3ALAIYB5x+fzwHOHnffOOn8Cz2C5gUHVHIaI9Vj7hUzVC+50PXRvq16ic12hw/JP0i2no/KXj/N7tfFs90+hPbC4nB9Qyy/xMKbxW/Xw3bivF4m2+rcG9o4zrX0L13l8bl1ZuDcacqkntfXcjo2u+m5CQttFoADVn9isCrIjrrYTlCXNF1JbP8ABrqn4fikegcbwWHjsMuHzx58cqtXTT6Sg/szjekkvFO4uUX6reXbzF4nUGL6leqc2kKM3BZgz0OfYWVn2NuNYQfTuCj6FWCOjoOq4biY54+El60fDzXin0f42j5w7d7Czdk5uSffxSt4sqVKa8Gvs5I/bhemjTcXGT+3mwP9i3Uv+L/O/wDdeVJpzR50/ZSn+yXJ/wADZf8AT8bx/wD/AGAY18ww/wDWDm/4z8N/rOIgHaL7X4fhcF/97kP9XRAN+8J//ZHyH+Bep/8AW8lAMPfZKt/X3lP8FJ/22qAYZ8zR/s95D/GPh/8ATxMA9vDANo6r6rxsHHuy8u5MfFoQ2XXWsFREH7fzJJ0qqNszEAAkgS2Uklb28THkyRxxcpOkt3+uvkYT6c6d5LqBjyOVlcjw/GsoXiuNxLBiZj1EgnP5FjWzrbkf+7xN6qqCk/M7TFG5au0ui61pq7Vp+Xhq9dFq8ePLxEnknKeODVQxppPd9+Tq7kqqN0l5vTkR8um//jfP/wCUT7//AIZfy+b+P9iT9U0/zMv9X9jhXVXl85HGy0zOOsp5d2xL8C2nqXJtf4dLmVhdi214t2h7FbaDWvqKB84+kslCS1jTeq7za380n4bV91EKXA5IZfSwl6S4ODjld8utpxdaX9re6W1a5B6DbC6c4rjOP5DksSl6qUxa7cvIqxVyLl92THW+xSVUt2ogJITt3qXRrHGMW4rRRXRN+CV/BEvAocJix4pzVxio3JpXSWuplNG2Nj3B9wRMpsSwBAEAQBAGoBSIBIBYBYBpgAwBANUAhEAQAYBBAKYBIAgF3AEA2PrXovG5DFvw8upbsXIQ121t9CCQQyn6q9bBXRxpkdVYEEAyycFOLjLZ/r4krheKy8JlhnwScMmOSlGS0aa+9NNpp6NOjyb8e/APK4DNONd3W4thZsHN7dJkVbJ7HI+RMqoD8Sr22AHUdraXkOIwSwSqW32ZeK8/93j47rql9K9idtYu1sCyQqOSK/xsV6weneXV4pWuWX2W+SWtOXHPDDqPkMTPx7uK9b7xVtU10Vvc1ykqLKbaE97sd/k9RDpR8rd1bIjrjxylGSeP1ula6Xqmuq8ei8VubDtDh+Fz8NkhxvIsLXelOXLyum4yjJ+rkjrytJt6x5ZJyi/UrrHhc/mumM/FtxkwOU5Ph+Rwji3XLbVj5WZhX41YsvoWz8LvsRyVRmVD/FLAidljcnFOS5XWqu6ftR8ucZixYs84YMnpcak1DJyuHPHo+V6r9VodZvI15Kuc6d5i7P5JuNbGt4+/EUYWVk33C2zIxbV2l2BioE7KbNsLCQe0dp2SuQhnEPFf7Pjn87qy/mqbOLHH28xgckotyslcoUYj4RdfRXAer1GGK/aPiNfMuyPeUBmnz/eV3lOpk4xeMbCVsOzKe746+6hSLkqVPTNOJlFjtG2GCa9vc79qg3boLy3cljdB5PTVrYg5S7j+Zw1eq658IWcg+YaCb2xq7ewLfX3n4bakNoPoEgY98hnk05nprks3M5J+OanJwlxaxg5ORkOLFyFt263YWKoQqD7hmOwPb32AMfeMf2evP8h1Tk8zRZxYwLuVwORUW5WUmUKcU4XqKaVwLK/Ub4Z+0evr5l2R7wD0S6j6koxKLcnJtSjGpRrLbrCFREX6kk/zAD6sSAASQDRtLV7GOc4wi5SaSStt9EjCPS/T1/UeRVyfJVPTwuO4u4biLwQ2W679PluSrOvcg7x8KxSKwBY3zGR1F5HzS9VU4rVN+cl5dItaVb1pR1kIS4qSyZFWNepjf2n0nP8A+q6btXtr5Dq7N6gymxuIyrMHhcV2XM5zGFb352UmwcHivWrsp9CptG/O7XUuvpID87S7mc3UXSTput34RvT2vWtYpXbjR5J8VPlxScMcX3siq5vVOMbT0XV01enQ3YeX/M/+Zue/f38bv/u6Xcn+5/L8i76jk3+s5v8A4v8A8zY+S8NRVfVi29ZcrVl3DdOPZlcOmRaN63XU+CHf39vlU7MOD/afy/IwywcslGXF5VJ3UW8Vv2L0epxPrXy68pTlWZFS4/UyZOAeO11FfTTdxzGyxzfQ1WE1NlDiwd9aVVX7QasYFQmKUZp3FKVqu9Jqqvak1reui266VinwOSM3L/xHNDkfpXG4LySglTvvddFv07C+FXSNnH8ZgYNtxyLcTExsazIIINz01LWz6JJAJX22Sda2SdzNjjyxUW7aSTfi116m6wY/R44wbvlilZyoTIZxAEAsAkAQCmASAWAXUAggDUAagFMAagGmAWASAXUAhEAQBAEAuoBxfxF8OMPlcWzDzqVuos9wD7PVYP4l1Ng+aq5PqtikEe/1BIOHLijljyzVr5rzT3T9hP4Hj8/A5o5+Hm4Tj1Wqa6xlF6Si1o4u01ujAnU/P8N0RjenxnCcjyGfYgBTjsDMzsq/32Dn8ouPalValu702sLKpY10NrtluHh8eL1Ele76v2vqSu0u2OM7SnzcTllJL1YLu44bepjVRjfVpW3q23bfSLxG81/iFyGQ11WNzfFUjYqw+N4TONaJ+QtuyuOvuyLR9Db+Ep+oqr32yQaY4n/V08Rv5T1T/kW7/wAngD+rn4jfynqr/I13/lEA+lXjn4h7HfldWhPzNfB2O+v+Kr8ZSrH9Dao/WCjObYvjf1G2hbneJY/b6fS/HDX/ADvXB1/NBR7fr+xyXjOu+QfRv53xMT6bU9O2J/T6CN/mP9Mtkm+tea/uiPKLmvtx9kl/3NH7+R5Wi0d2V1T4jY9aaLNZx/M4SD/ltV6S6/fsb/fMMly6uUuuyb3roluuj9vmQJ4fRNyllzaquk17o8kkn5pWz405fSzlRkdZdR3Cp67hVyPH8rm0+pWwsrZ6snDyaLSjqrAOHAIHtIzeNatzd9GpvVdeVp1XTQ1OXDh0nLic612dVp4wcK+MTJuZ418LlVtTk9c83di26W+lOHvxTbSSO+n18bha76lsUFC1bq3azDcteWGzyZf/AG38msd/B35maWbG1UuJzOPVLHo/fHGnT/2mW+O8wGJmUVcN0cgbICClbnwczE4/hsRR2nMsXKoxheU2BVj1km2w+5ADEyI5lKoYk/fFxUV46pX4UtdVsranLi4zUcXCq2+rTjGEOstVq10W7b95zBfADkSF31VzvcAO4qOKAYj6+x45tAn8t+37fzl/opfvJ/8ADX/gSI8JkV/4+V348mns7n32Yh6x8rHKG3kKFqw+UPJ3YdqdScnZWnLcSmOtSMErqxh3tSK2fH+Fehe527wNkmyWKWq0lfL3m+8q8uWu7vHzb0W71WXs7K3OHdyc7TWabrLjpJd1Ritd+Vxca6p9e4uPVpVBJYqAO4/UkDWz+p+slnTo+kFSiAIBIA1AEAuoBIBdQCQCmANQCQCkQAYBIAgCAIBdQBAITAEAbgDcAagF7YAgCABAJALABEAEQD42Yin6qp39e4A7/Z9RBSkRcNB9FUfuAH+gQKXgj6isD6e37oFFEFRAKIBIAgFIgEgCAIA3AEAsAkACAXUAGASAIBQIAMAagEgFBgAmAIBIBYBDAOLcH4oYOTn53G0XizO41MR8+lVfWMM1bHxlewqKzZZXU1npqzMqGtmCixO4DlUAhMAw74SeYvG5TOy8VMjAdPxL+J+FvttyMzAxrfg83JyKXprFBo5BbMfQdu7W/posBlnluVroqsvtcJTTW91tjb0ldal3c62dKoJOh+UA4Jb5guJXB43kWyguHzF2Hj8XY1dyvl3ch74laVGsWo1qhn1YidiKzN2hToDIkAbG9fn+z/xgHHOqvEPDwrcKjJtFd/I5HwmDX2uzX3itrWRe1SFC1I7szFVAH1+ggHI4BVMA4p/VTwfvQcKLweV+BflDihXLLgpfVjeuz9vpKGuuRFUv3NpyAQjEAcqMAQDgWN47cS+PyeWuYnwnD35OJyeQVsFeNkYaq2VWSU3YaO8KxrDKGDLslSABzDg+Yryaasiok031V3VMQVLV2oHQlToqSrA6IBEA/cTAIIBdwBuASABALAGoBIBe2ANwCQBALAJALqADAEAkAbgGy9b9Z43HYeTn5lgpw8OmzJybSrP6dNKl3YJWrWOQB7Iis7HQAJIEA+3SvUtWZjY+XQXOPk015FBsrtosNVyh62em5K7qmKMD2WIrDeiAfaAbrAMI+P8A4nZmDyPS+Ni2LXVynMthZwNdbvZjJhZGR2Izq3p91lS7dQG17ArvcAxv5cN/7u/EL+930p+z6/dFm/1/vf8AP+sAyP4N+KWZm8/1VhXuhxOJyOLxsGpK0UouRx6Zd72OB6ljvZaV+Zu1VRAFU95cDeepvGd6Oo+L4IUI1efgcjyFmUXPfX8E1SLSlXbo95tDGwv7BSO337gBxzwt8XMjL5HqzHevGSvg8mjFwTVUUf07ePXNsa9i7d7Ne7eyite1R7E7YgbR4ZeI2Ty/Qv3lmur5ebw2fkXNWi1VhmqyPkREACpWNIAe5tAdzOe5iB126tH9iHhZ+f8AX3pL/NgZv+j/AMIB358QOvcTi8LJ5DOtFGFiVtfkXFXfsrX6kJWr2Ox9gERGZiQACTAMX+LSY2Bgc11bgVn71HTt7033nJ9J6MHGyM/DS3CexEXttcs34ddumZSRswDDnWXVV2afC/MynFmTl5teTkWBVQPddwN72MK0ARAzsSFUAD8oBmTzd+K+bxXFVNxppTkuQ5HjOHwrspDbRj28jl10HIeoEep6VZsZVJK93aSrhSjAcH8COu+dwepMvpjnOTr5otxFHO4PJrh4/HXVI2U+Ddh204oWmxPUqa2t+3vG2BZgyCoDbsDf9VW729v9ww99f/XsfY3+nt/T+sAyN4I+KmZnc51Xh5FinF4nN47EwK1rRPTruwBk3M7gepY9lj+5dioVFCqvzlgP0+A/idl8hyXVFGQ6NTxfL1YGEiVonp0fAY2Q3ewHfY723OSzsfoAAujsDqlwR/sP8UP8PdZ+3/OEA7zeDp/rRxf+DsD/ALLVAOXwCgQARAJAAgFEAGASAIBqgGmAIAgF3AIYA3AEAQAIBdQDGnmT8MbOa4DluLpda783CvooewkVi/XfSLGAYrW1qorMFYhSTo61AOvfSnnHzMXjhx/M9LdTY/LY2N8HcnE8bbnY97JSK0uwM2gHH/FXsYAsVpsJTucJ3sBw3y9eTHlM7GyMrlOW6s4WqzKf7q4pOfy2ycfjQqik557mRcl2729NAnYnaCNk6AyT055YOP4nn+GtycnqrnMt2z347I5HKyuT4vibacRvVuyrTqvGfIrc00+oT6lvbpdoGUDmviz5MMHlORs5WvkeZ4nOvqpoy7OF5C3AGYmOGFByFrHztWrFQd/QD2+pIGJulPI/xdmdyNWLyHWfHZmK+OnIcp95ZmOvOPfSL670ymJGYMdXNLMnZ6bqVIJ+ZgOUn7OTjWb4izmup7eRTQxuUs5rKOdiVfN300WDQFdne3cCrH9hG27gNP8A6NziVLtTyvUePdkjt5S+nmcpbeXALnXIE7FvtbcnsFGnc6LMzMAt+zc4pVbHx+W6kxeLbuVuIx+Zyhx/p2Em2r0nLsa7dt3BmYnZ2SfeAZZ648svHZuJwmEDdi4nAZ3H8hx1WKyAd3G0W4+PRc1yWs9Pp2nv0VsYgHv/AI2wHmy8Jruc6d5Xi8ZlTJysYjHLntRr62W2quxhvtSx0FZfR7Q29HWoB1w8SPMXzXL8Hk9Pp0lzdPUHI4dvEZIvxjVw2Icqk4+RmnltHGfGSt7Lawnuzdqe3u0Azl1B5SsPkOC4jiM27JS7iKsI4vIYFz4mVj5mLijGORj2Lvt7lNgAYNrasNMisAMe8x9m3x2UoXN5zqfO9P8AExDmcxkXfBZYBFWdjBgVXJo2SjEFfrsEEiAfd/s88a6183L6g6jv5lglS8xVn/BZdeIikDCRcRK6vQJLWMChYuzNsdzbA37p/wAGOO6NrzebA57nc+5MbEvyLXyOb5b4M3qFpx69ep8PU7C+wL79qBjvsAgGIfCrysZPUGZzfUGZf1F01968gluFh4ebbxeZZgY+JTj12chRX8yvY6M6VWAPWO78n2QN46I8jXGW38imFyHWXFX42UMfPzfvLLxfvy81rkfHrcS3xiL670+qoRQ4t+XZLuBnLiPKZxeP0/m9O0NkpicgmWubltb62ffdnDWTl2X3LYHyH9vmZCo0o7dCAZW6Y4FcXGx8VCzV41FOOjPrvZKa1rUtoAdxCgnQA3v2EA3OAAYBTAJAEAQCmASACYBdQATAAEAQBAJAEAuoBIAgFEAhMAxd4geCBz8p8kcxzWEHx8PG+G4/O+HxE+E5BM/10p9Nu3IyQhw7rAd2YrvWfqCKWgZPX9kWgUNKgdwgH4ed5T0aLbhXbca63cU0KGuuKqSKqlJUGxyO1QWUbPuQNmULJy5YuSTlSbpVb8ldK35ujh3D+JBfAfLsda7Me0jOrGLm92IEtV7qXx7Fqyy1WI6sMj0glilMlazU6oaRdq/z/H9Na7EWGZvG5PRpvm7su7T1TT10j9paS9ZaNF698RLMVmFS1uBx+RmqW7j3PVfi1INqwBrK5DMde5+X3+uzZflyuGq/Zv5r8DnxaXEooMA41091hVbXh7sWyzLpa6pq6rqq7VrVGsdUt7mqX8RCK7H79N/dabSzDDIpKOuslfgv7ew4rw3jpjNW7WrcfRvuoy7cfHvuxcPty7cer4i5VZUPYldlvaW9CthbaKKyHlvN99fMjx4mNW73abim0u84q2vZb6x+1SOc8v1Vj463Nbaqiin4m8e7NXR849UogZypNdgGlJJUgAy4luaW72V+42XrXr0Y+Nn2V6a7BxxeyWBwm3RnrBYdvcCEJPafb23KPqYcubljNx1cI3rttaLyHX9aZqYpZ+0kUWMMe560y7kFuNS+Uv4NTPSth7HU7azGHehtrS1aEsyU1DXV16ratptW9o6Lro20rtpG29NeI1l+XTjtWgWxedYuvdsfdXJ4uDSACSPxa8hnf/jKNAD2lqd/P5Oi2OWTmo0qfP8A8XFLfxvUyAWl1ksBh+2LALiLBQZUCAIAEAuoBIBVgBoBIAgFgCAIA1AJAEAuoAgCASAIB8czDSxWR1V0YFXRwGVlP1DKdgg/sIlsoqScZK09Gns15lU2na0Zsp8O8D+RYv8A0FX+xI31TD+7h/SjL6bJ+1L4geHmB/IsX/oKv9iPqeD93D+lD02T9qXxZuPE9PUY4YUU1UhtFhUi192vp3doG9bP1mXHhhj9SKje9KiyU5S9Zt+1nA+t7b8DLs5Cpab678WjEsptbLSytsNs3JSypsXEziyWJfcHrapD3InaztYEmR2np8P11NdkvHN5FTTio1ra5eZ6Vdp3tWj666fLp/wt5D0k+J53kvXPc1gx/uo0pt2K1I13EG2wVIVr9V+1rCpcqnd2Laovxft0/Ishw2Wu9ny3vS9FS8k3i5mult29zcqvCICqytc/kFe+435uQHw/XzSaK8UJcThGutFx6aal+Fqx2AQHu7izG+jJ9V00nNNu5tclz7qj3rg60S9XlarRomD4MUKliWZGZkB8cYVRyLKmbFxAyN6NBSivYLV1lrbvWtfsXdh1KcpWPDKKceabTSStrupdFSXxdvzPp1/jXU34/IUiuz0K7sSzHuN6BlzbsTstqeijKZbEtprQ91BQ1u5LVhCxO90XZeaLU1TrRp312qk+u+m1vQ2TpnoXkMlHyb+Zz6PiLDkUY2GMA04uNYqNXR6mbw4ybGB72JsrrKBxX2/h97Wxi9bbevlp5KktOutu34aKPHDlnc3myRTdqMVjpLwuWNyb8dV5Lqfno8FLKXxqsfMz68bGq9LGv+Mx3vxEKkWU11ZHGZC5K2CvHU25d11vuxUoU3YUKSVvTz/P73qXfVmmlGc0o6RfNHurwVwd31cnJrpT1X3wPL1VXjWYY5Hkvgrmy3yMYNx9aXnPtuvzS9lPHVZCnJuyL7Hau5G250VGgLq82U+p3FweXK4tNOLcdU9+8oKa8qkqpJVHQ/VkeBVdnqm7keTuN9QxsgvdjJ62IDYy4pFGHStaK1trC2kV5B7yGtYAAOXzZe+FUrueR2qfeS7uvd0Sr2qpaLvDkfAmu5bku5HlLEyU9LMU34yfFVBStdbmvERqRUrFQ2Kcd2/u2tPvHL5v9e4S4RSTTnkfNalqlzLZK1FVXRx5X4tnwy/AMPb655blxd6lV3etnHhTbRXbVW70DjfhrGWu0r32Us3y0ne6aiivN/L8iyXB279Jlu07uKqk0tOTlaSf2k9ae6TOWdP+HdGM9FiNc9lFebX32uGNp5DJpy8q23SKDa99CsOwIihnUIB2hSikSY4IxcZW24qStvfmabb6XaXhXQ3jlunqMgAX01XBSSotRLApP1I7gdH90syYoZK54qVbWrolxnKPqtr2M23+p1x/8ixf+r0/7Ew/U8H7uH9KL/TZP2pfEo8PMD+RYv8A1en/AGJT6ng/dw/pQ9Nk/al8Te8HBSpFStVStRpEQBUUfsVVAAH6CSYwjBJRSSWyWiRibbdvVn2l5QQBAAgCAIBq3ANIgCAXUAgMAQAIBSYBIBQYA1AJAKYBIAgCAWADAJAEAsAkAQBABMAQBAEAQBqAUQCGAIAgCAIAgCAIAAgCANQBALqASAIBdQCQC7gEMAu4AEAQBABEAQCCAXcAhMAQBAEAagAQBqAXUAkAogAiASAIBYAAgAmAO2ASAIAgCAUGAQwCgQCagGqATUAkAuoAgEgCABALAJAEAQBuAIAIgFAgAQBAJAEAQC6gFgGmAXcAEwCGAIA3ALuASAUQBAITAAgF1AJAEAogDcAogDcA0iAWASAUiASANQBAEAuoBIAMAqwAYABgCAWAQmASAIBqMAmoAgEgCAIAgDUAQBAAMAEwBAAgFEAGANwBqATUA1QCAQCAwBuAUmANwBAEAkApgEgFgEgFJgEMAQBALuAQCAIAgFIgDcAkAQAYBdwCQCgwBuASANQC6gEgCAIAgCAWASAWASANQCmATcAQCmABAJALAJAEAsAkAQBALAJAKYAgEBgCAIAgCAahANMAQBALuAIAgCANQABAGoAMAQBAJqAIAMAQCwBqAIAJgDcAagEgDcAu4BDAEAsAQCQBuAWAIBCIAgF1AG4A3AJuAUQARAJALAKDAGoBIAMACAIBBALuANwBAAEAEwBAJAKDAIIBYAEAu4BNwCGAIAgCAUGASABABgCAXcAhgF3AGoA3AJAEAbgFgCASAIBdwCQBuABALuASAIBYBIBqEAAQDSYBRAEACANwBuASAUCASAUQBAGoBNQBAEAbgCAIAgCAIAEApgACATUAagFJgEgCAWASANQBAEAQBAKRAJALAJALqACIA3AJAKIA3AJAEAQBAEAbgFgEgCAIAgCAIBdQCagCANwCiAIAJgEgAQC7gAmASAUQBALAIYA1AJAEAu4B/9k=" alt="logo" />
             البرلمان الشبابي الذكي
         </a>
         <button class="nav-toggle" id="navToggle" aria-label="menu">
@@ -505,12 +581,12 @@
     </div>
 </nav>
 
-<!-- ===== HERO ===== -->
+<!-- ===== HERO with Unsplash background ===== -->
 <section class="hero" id="top">
     <h1>البرلمان الشبابي الفلسطيني الذكي</h1>
-    <p>جيل واعٍ.. قيادة ملهمة</p>
+    <p>منصة شبابية وطنية رقمية تجمع المعرفة، التكنولوجيا، الحوار، والابتكار</p>
     <div class="hero-btns">
-        <a class="btn btn-primary" href="https://forms.gle/iDWdfQab4fhiTTT27" target="_blank">انضم إلينا الآن</a>
+        <a class="btn btn-primary" href="https://forms.gle/iDWdfQab4fhiTTT27" target="_blank">انضم إلينا</a>
         <a class="btn btn-outline" href="#about">تعرّف علينا</a>
     </div>
 </section>
@@ -518,47 +594,54 @@
 <!-- ===== ABOUT ===== -->
 <section class="container" id="about">
     <h2 class="section-title">من نحن</h2>
-    <p class="section-sub">مساحة شبابية فلسطينية لبناء قيادات واعية عبر الحوار والممارسة الديمقراطية</p>
+    <p class="section-sub">تمكين الشباب الفلسطيني وتطوير قدراتهم في القيادة والحوار والابتكار والذكاء الاصطناعي</p>
     <div class="about-box">
         <p><strong>البرلمان الشبابي الفلسطيني الذكي (PYSP)</strong> هو منصة شبابية وطنية رقمية تهدف إلى تمكين الشباب الفلسطيني، وتطوير قدراتهم في مجالات القيادة، الحوار، الابتكار، والذكاء الاصطناعي، ليكونوا شركاء فاعلين في صناعة المستقبل.</p>
-        <p>انطلق البرلمان من إيمان عميق بأن الشباب هم الثروة الحقيقية للمجتمع، وأن الاستثمار في عقولهم ومهاراتهم هو الطريق لبناء مجتمع فلسطيني قادر على مواجهة التحديات وصناعة التغيير الإيجابي.</p>
+        <p>انطلق البرلمان الشبابي الفلسطيني الذكي من إيمان عميق بأن الشباب هم الثروة الحقيقية للمجتمع، وأن الاستثمار في عقولهم ومهاراتهم هو الطريق لبناء مجتمع فلسطيني قادر على مواجهة التحديات وصناعة التغيير الإيجابي.</p>
         <p>يسعى البرلمان إلى توفير مساحة شبابية تجمع الطاقات والمواهب من مختلف محافظات الوطن، وتعزيز المشاركة المجتمعية، وتنمية مهارات التفكير النقدي، والعمل الجماعي، واستخدام التكنولوجيا الحديثة لخدمة القضايا الوطنية والتنموية.</p>
+        <p>نؤمن بأن صوت الشباب ليس مجرد رأي، بل هو قوة قادرة على التأثير وصناعة القرار، ولذلك يعمل البرلمان على بناء جيل واعٍ، مبدع، ومؤهل لقيادة المستقبل.</p>
     </div>
+
+    <!-- <h2 class="section-title">تعريف البرلمان</h2>
+    <p class="section-sub">إطار شبابي حديث يجمع الشباب الفلسطيني حول رؤية مشتركة</p>
+    <div class="about-box">
+        <p><strong>البرلمان الشبابي الفلسطيني الذكي (PYSP)</strong> هو مبادرة شبابية فلسطينية رقمية تهدف إلى إنشاء إطار شبابي حديث يجمع الشباب الفلسطيني حول رؤية مشتركة قائمة على المعرفة، التكنولوجيا، الحوار، والابتكار.</p>
+        <p>يعتمد البرلمان على أدوات التكنولوجيا الحديثة لبناء مجتمع شبابي متصل، قادر على التعلم المستمر، وتبادل الخبرات، وإنتاج حلول إبداعية للتحديات المعاصرة.</p>
+    </div> -->
 
     <div class="card-grid">
         <div class="card">
             <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M3 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M17 3.5a4 4 0 0 1 0 7.5"/><path d="M21 21v-2a4 4 0 0 0-3-3.87"/></svg></div>
-            <h3>جلسات محاكاة برلمانية</h3>
-            <p>تدريب الأعضاء على آليات التشريع والمساءلة عبر جلسات محاكاة واقعية.</p>
+            <h3>القيادة وصناعة المبادرات</h3>
+            <p>تطوير قدرات الشباب على المبادرة والتأثير وصناعة الحلول العملية.</p>
         </div>
         <div class="card">
             <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg></div>
-            <h3>مبادرات مجتمعية</h3>
-            <p>مشاريع ميدانية تخدم المجتمع المحلي وتعزز روح المسؤولية.</p>
+            <h3>الحوار والتنمية الشبابية</h3>
+            <p>تعزيز الحوار المجتمعي، والعمل الجماعي، والمشاركة الوطنية والمجتمعية.</p>
         </div>
         <div class="card">
             <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
-            <h3>برامج تدريبية</h3>
-            <p>ورش ودورات في القيادة والخطابة والتفكير النقدي والذكاء الاصطناعي.</p>
+            <h3>الذكاء الاصطناعي والتحول الرقمي</h3>
+            <p>بناء مهارات التكنولوجيا الحديثة والريادة والابتكار لدى الشباب.</p>
         </div>
     </div>
 
     <div class="vm-grid">
-        <div class="vm-card"><h4>🔭 الرؤية</h4><p>شباب فلسطيني ذكي، مبدع، ومؤثر يقود مسيرة المستقبل.</p></div>
-        <div class="vm-card"><h4>🎯 الرسالة</h4><p>تمكين الشباب الفلسطيني بالمعرفة والمهارات الحديثة، وتعزيز دورهم في التنمية وصناعة القرار.</p></div>
+        <div class="vm-card"><h4>الرؤية</h4><p>شباب فلسطيني ذكي، مبدع، ومؤثر يقود مسيرة المستقبل.</p></div>
+        <div class="vm-card"><h4>الرسالة</h4><p>تمكين الشباب الفلسطيني بالمعرفة والمهارات الحديثة، وتعزيز دورهم في التنمية وصناعة القرار.</p></div>
     </div>
 
     <div style="background:#fff;border-radius:var(--radius);padding:24px 28px;box-shadow:var(--shadow);border-right:4px solid var(--gold);margin:20px 0;">
-        <h4 style="font-family:'Tajawal',sans-serif;color:var(--primary);">أهدافنا</h4>
+        <h4 style="font-family:'Tajawal',sans-serif;color:var(--primary);">قيمنا</h4>
         <ul class="goals-list">
-            <li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>إعداد قيادات شبابية تمتلك مهارات القرن الحادي والعشرين.</li>
-            <li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>نشر ثقافة الذكاء الاصطناعي والتحول الرقمي بين الشباب.</li>
-            <li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>تعزيز قيم المواطنة، العمل التطوعي، والمشاركة المجتمعية.</li>
-            <li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>دعم الابتكار وريادة الأعمال والمبادرات الشبابية.</li>
-            <li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>بناء شبكة وطنية من الشباب القادرين على صناعة الأثر الإيجابي.</li>
+            <li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>الانتماء الوطني.</li>
+            <li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>الإبداع والابتكار.</li>
+            <li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>المسؤولية المجتمعية.</li>
+            <li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>العمل الجماعي.</li>
+            <li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>التطوير المستمر.</li>
         </ul>
     </div>
-    <div class="slogan-banner">"نصنع قادة المستقبل… بالذكاء، والمعرفة، والإبداع."</div>
 </section>
 
 <!-- ===== NEWS ===== -->
@@ -566,60 +649,77 @@
     <h2 class="section-title">آخر الأخبار</h2>
     <p class="section-sub">تابع مستجدات البرلمان الشبابي وأنشطته</p>
 
-    <div class="news-card">
-        <div class="news-thumb" style="background-image:url('https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?w=400&h=250&fit=crop');"></div>
+    <div class="news-card" tabindex="0" role="button" data-gallery="docs/news/1/1.jpeg|docs/news/1/2.jpeg|docs/news/1/3.jpeg">
+        <div class="news-thumb" style="background-image:url('docs/news/1/1.jpeg');"></div>
         <div class="news-body">
             <span class="news-date">17 يوليو 2026</span>
             <h3>الإعلان الرسمي عن انطلاق البرلمان الشبابي الفلسطيني الذكي</h3>
-            <p>في محطة وطنية وشبابية مميزة، يعلن البرلمان الشبابي الفلسطيني الذكي (PYSP) عن انطلاقه الرسمي يوم 17 يوليو 2026، ليبدأ مرحلة جديدة من العمل الشبابي الرقمي الهادف إلى تمكين الشباب الفلسطيني.</p>
-            <a class="news-link" href="#">قراءة المزيد ←</a>
+            <p>في محطة وطنية وشبابية مميزة، يعلن البرلمان الشبابي الفلسطيني الذكي (PYSP) عن انطلاقه الرسمي يوم 17 يوليو 2026، ليبدأ مرحلة جديدة من العمل الشبابي الرقمي الهادف إلى تمكين الشباب الفلسطيني وتعزيز حضورهم في مجالات القيادة والتكنولوجيا والابتكار.</p>
+            <p>ويأتي إطلاق البرلمان كمنصة شبابية حديثة تجمع الطاقات الفلسطينية من مختلف المناطق، وتفتح المجال أمام الشباب للمشاركة في برامج تدريبية ومبادرات نوعية تهدف إلى بناء جيل قادر على صناعة المستقبل.</p>
+            <p>ويؤكد فريق البرلمان أن هذه الانطلاقة تمثل بداية لمسيرة طويلة من العمل والعطاء، نحو بناء نموذج شبابي فلسطيني يعتمد على المعرفة والذكاء الاصطناعي والتواصل الفعال.</p>
+            <p>انتظروا بداية رحلة جديدة... حيث تتحول أفكار الشباب إلى إنجازات.</p>
         </div>
     </div>
 
-    <div class="news-card">
-        <div class="news-thumb" style="background-image:url('https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=400&h=250&fit=crop');"></div>
+    <div class="news-card" tabindex="0" role="button" data-gallery="docs/news/2/1.jpeg|docs/news/2/2.jpeg|docs/news/2/3.jpeg|docs/news/2/4.jpeg">
+        <div class="news-thumb" style="background-image:url('docs/news/2/1.jpeg');"></div>
         <div class="news-body">
-            <span class="news-date">10 يوليو 2026</span>
-            <h3>البرلمان يفتح أبواب الانتساب للشباب</h3>
-            <p>أعلن البرلمان الشبابي الفلسطيني الذكي عن بدء استقبال طلبات الانتساب للشباب الراغبين في الانضمام إلى هذه التجربة الوطنية الرقمية، ويهدف إلى توسيع دائرة المشاركة الشبابية.</p>
-            <a class="news-link" href="#">قراءة المزيد ←</a>
+            <h3>البرلمان الشبابي الفلسطيني الذكي يعقد اللقاء التدريبي الثاني والثالث بحضور رئيس جمعية المدربين الفلسطينيين</h3>
+            <p>عقد البرلمان الشبابي الفلسطيني الذكي اللقاء التدريبي الثاني ضمن البرنامج التدريبي المتخصص الذي يهدف إلى إعداد وتأهيل جيل شبابي يمتلك أدوات المستقبل ومهارات القرن الحادي والعشرين، وذلك بمشاركة واسعة من المتدربين من مختلف محافظات قطاع غزة.</p>
+            <p>وشهد اللقاء حضور الأستاذ أيمن الميمي، رئيس جمعية المدربين الفلسطينيين، الذي استهل كلمته بتوجيه التحية لأبناء الشعب الفلسطيني، مشيدًا بصمودهم وإرادتهم في مواصلة التعلم وبناء المستقبل رغم الظروف الاستثنائية.</p>
+            <p>كما رحب بالمتدربين، مؤكدًا أن الاستثمار الحقيقي يبدأ من الاستثمار في الإنسان، وقدم لهم خمس رسائل ونصائح أساسية لتطوير ذواتهم، تمثلت في أهمية التعلم المستمر، وبناء الشخصية القيادية، وتنمية مهارات التواصل، واستثمار الوقت، والإيمان بالقدرات الشخصية والسعي الدائم نحو التميز والإبداع.</p>
+            <p>ويقدم الدورة التدريبية الدكتور عبدالكريم أبو مصطفى، حيث تتضمن ستة محاور رئيسية صُممت لتمكين المشاركين من امتلاك مهارات القرن الحادي والعشرين، وفي مقدمتها مهارات الذكاء الاصطناعي، وهندسة الأوامر (Prompt Engineering)، والتفكير النقدي، والإنتاج الرقمي، والتواصل الفعال، واستخدام أحدث الأدوات التقنية في التعليم والعمل.</p>
+            <p>وأكد القائمون على البرنامج أن البرلمان الشبابي الفلسطيني الذكي يسعى إلى بناء جيل قادر على قيادة التغيير الإيجابي، ومواكبة التحولات الرقمية العالمية، بما يعزز حضور الشباب الفلسطيني في مجالات الابتكار والمعرفة، ويمنحهم الأدوات اللازمة للمنافسة والريادة على المستويين المحلي والدولي.</p>
         </div>
     </div>
 
-    <div class="news-card">
-        <div class="news-thumb" style="background-image:url('https://images.unsplash.com/photo-1531482615713-2afd69097998?w=400&h=250&fit=crop');"></div>
+    <div class="news-card" tabindex="0" role="button">
+        <div class="news-thumb" style="background-image:url('docs/placeholder.avif');"></div>
         <div class="news-body">
-            <span class="news-date">5 يوليو 2026</span>
-            <h3>برامج تدريبية في الذكاء الاصطناعي والقيادة الشبابية</h3>
-            <p>ضمن رؤيته لبناء جيل شبابي مواكب للتطورات العالمية، يعمل البرلمان على تقديم برامج تدريبية متخصصة في الذكاء الاصطناعي، هندسة الأوامر، المهارات الرقمية، والقيادة الشبابية.</p>
-            <a class="news-link" href="#">قراءة المزيد ←</a>
+            <h3>البرلمان الشبابي الفلسطيني الذكي يفتح أبواب الانتساب للشباب</h3>
+            <p>أعلن البرلمان الشبابي الفلسطيني الذكي عن بدء استقبال طلبات الانتساب للشباب الراغبين في الانضمام إلى هذه التجربة الوطنية الرقمية.</p>
+            <p>ويهدف الانتساب إلى توسيع دائرة المشاركة الشبابية، وإتاحة الفرصة أمام أصحاب الأفكار والمواهب للمساهمة في برامج البرلمان ومشاريعه المستقبلية.</p>
+            <p>يدعو البرلمان جميع الشباب الفلسطيني الطموح إلى التسجيل والانضمام إلى مجتمع شبابي يسعى للتعلم والتطوير وصناعة الأثر.</p>
+        </div>
+    </div>
+
+    <div class="news-card" tabindex="0" role="button">
+        <div class="news-thumb" style="background-image:url('docs/placeholder.avif');"></div>
+        <div class="news-body">
+            <h3>برامج تدريبية نوعية في الذكاء الاصطناعي والقيادة الشبابية</h3>
+            <p>ضمن رؤيته لبناء جيل شبابي مواكب للتطورات العالمية، يعمل البرلمان الشبابي الفلسطيني الذكي على تقديم برامج تدريبية متخصصة في الذكاء الاصطناعي، هندسة الأوامر، المهارات الرقمية، والقيادة الشبابية.</p>
+            <p>وتهدف هذه البرامج إلى تزويد الشباب بالأدوات الحديثة التي تساعدهم على النجاح في المستقبل الرقمي.</p>
+        </div>
+    </div>
+
+    <div class="news-card" tabindex="0" role="button">
+        <div class="news-thumb" style="background-image:url('docs/placeholder.avif');"></div>
+        <div class="news-body">
+            <h3>مجتمع شبابي فلسطيني يجمع الطاقات من مختلف المحافظات</h3>
+            <p>يواصل البرلمان الشبابي الفلسطيني الذكي العمل على بناء شبكة شبابية واسعة تضم الشباب الفلسطيني من مختلف المحافظات، لتعزيز التعاون وتبادل الخبرات، وإطلاق مبادرات تخدم المجتمع.</p>
         </div>
     </div>
 </section>
 
-<!-- ===== JOIN ===== -->
+<!-- ===== JOIN (Google Form only) ===== -->
 <section class="container" id="join">
     <h2 class="section-title">طلب الانتساب</h2>
-    <p class="section-sub">كن جزءًا من البرلمان الشبابي الفلسطيني الذكي</p>
-    <div class="form-wrap">
-        <a class="btn-gform" href="https://forms.gle/iDWdfQab4fhiTTT27" target="_blank">📋 التقديم عبر نموذج Google الرسمي</a>
-        <div class="or-divider"><span>أو عبّئ النموذج المباشر أدناه</span></div>
-        <form action="https://formspree.io/f/xpqvawdn" method="POST">
-            <input type="hidden" name="_subject" value="طلب انتساب جديد - PYSP" />
-            <input type="text" name="_gotcha" style="display:none" tabindex="-1" />
-            <div class="form-row">
-                <div><label for="fullname">الاسم الكامل</label><input id="fullname" name="fullname" placeholder="أحمد محمد" required type="text" /></div>
-                <div><label for="governorate">المحافظة</label><input id="governorate" name="governorate" placeholder="نابلس" required type="text" /></div>
-            </div>
-            <div class="form-row">
-                <div><label for="phone">رقم الهاتف</label><input id="phone" name="phone" placeholder="05XXXXXXXX" required type="tel" /></div>
-                <div><label for="email">البريد الإلكتروني</label><input id="email" name="email" placeholder="example@email.com" type="email" /></div>
-            </div>
-            <label for="motivation">الدوافع للانضمام</label>
-            <textarea id="motivation" name="motivation" placeholder="اكتب هنا لماذا ترغب بالانضمام..." required></textarea>
-            <button class="submit-btn" type="submit">إرسال الطلب</button>
-            <p style="text-align:center;font-size:0.8rem;color:var(--muted);margin-top:10px;">سيتم التواصل معك خلال أيام قليلة من فريق البرلمان</p>
-        </form>
+    <p class="section-sub">انضم إلى البرلمان الشبابي الفلسطيني الذكي</p>
+    <div class="join-box">
+        <h3>هل أنت شاب فلسطيني تطمح للتعلم والتطوير والمشاركة في صناعة المستقبل؟</h3>
+        <p>ندعوك للانضمام إلى البرلمان الشبابي الفلسطيني الذكي، والمشاركة في مجتمع شبابي يجمع المبدعين والطموحين من مختلف المجالات.</p>
+        <ul class="goals-list" style="text-align:right;margin:0 auto 24px;max-width:520px;">
+            <li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>المشاركة في البرامج والأنشطة الشبابية.</li>
+            <li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>تطوير مهارات القيادة والتواصل.</li>
+            <li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>تعلم أدوات الذكاء الاصطناعي والتكنولوجيا الحديثة.</li>
+            <li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>بناء شبكة علاقات شبابية فلسطينية.</li>
+            <li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>المشاركة في المبادرات والمشاريع المستقبلية.</li>
+        </ul>
+        <a class="btn-join" href="https://forms.gle/iDWdfQab4fhiTTT27" target="_blank">تعبئة نموذج الانتساب</a>
+        <h3 style="margin-top:28px;">انضم إلينا</h3>
+        <p>كن جزءًا من المستقبل. الشباب هم المحرك الأساسي للتغيير، ومن هنا يفتح البرلمان الشبابي الفلسطيني الذكي أبوابه لكل شاب وشابة لديهم الرغبة في التعلم، الإبداع، والمساهمة في بناء مستقبل أفضل.</p>
+        <p>إذا كنت تمتلك شغفًا بالتطوير، التكنولوجيا، القيادة، والعمل المجتمعي، فإن مكانك معنا.</p>
+        <p>انضم اليوم إلى البرلمان الشبابي الفلسطيني الذكي، وكن صوتًا فاعلًا في صناعة المستقبل.</p>
     </div>
 </section>
 
@@ -628,7 +728,7 @@
     <div class="footer-inner">
         <div>
             <h4>البرلمان الشبابي الفلسطيني الذكي</h4>
-            <p>جيل واعٍ.. قيادة ملهمة. مساحة شبابية فلسطينية تٌعنى ببناء قدرات القيادة الشابة عبر المحاكاة البرلمانية والمبادرات المجتمعية.</p>
+            <p>منصة شبابية وطنية رقمية تهدف إلى تمكين الشباب الفلسطيني، وتطوير قدراتهم في القيادة، الحوار، الابتكار، والذكاء الاصطناعي.</p>
             <div class="social-icons">
                 <a href="https://www.facebook.com/share/1Bo8DKwoGp/" target="_blank" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M22 12a10 10 0 1 0-11.5 9.9v-7H7.9V12h2.6V9.8c0-2.6 1.5-4 3.9-4 1.1 0 2.3.2 2.3.2v2.5h-1.3c-1.3 0-1.7.8-1.7 1.6V12h2.9l-.5 2.9h-2.4v7A10 10 0 0 0 22 12z"/></svg></a>
                 <a href="https://t.me/akareem91" target="_blank" aria-label="Telegram"><svg viewBox="0 0 24 24"><path d="M21.9 4.3 18.6 20c-.2 1-.9 1.2-1.7.8l-4.7-3.5-2.3 2.2c-.3.3-.5.5-1 .5l.3-4.9L18 6.5c.5-.4-.1-.7-.7-.3L6.4 13.2l-4.7-1.5c-1-.3-1-1 .2-1.5L20.6 3c.9-.3 1.6.2 1.3 1.3z"/></svg></a>
@@ -667,24 +767,16 @@
     <svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
 </a>
 
-<!-- ===== WELCOME MODAL ===== -->
-<div class="welcome-overlay" id="welcomeOverlay">
-    <div class="welcome-box">
-        <div class="welcome-banner">
-            <button class="welcome-close" id="welcomeClose" aria-label="close">✕</button>
-            <img class="welcome-photo" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face" alt="الشهيد حسام الطنطاوي" />
+<div class="news-modal" id="newsModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="newsModalTitle">
+    <div class="news-modal-panel">
+        <div class="news-modal-head">
+            <h2 id="newsModalTitle"></h2>
+            <button class="news-modal-close" id="newsModalClose" type="button" aria-label="إغلاق">×</button>
         </div>
-        <div class="welcome-content">
-            <span class="welcome-tag">مؤسس البرلمان الشبابي الفلسطيني الذكي</span>
-            <h3>المناضل حسام زهري محمود الطنطاوي (أبو العبد)</h3>
-            <p class="welcome-desc">قائد كشفي وعنصر في الشرطة المدنية بقطاع غزة، ارتقى شهيدًا في 7 يونيو 2026 عن عمر 49 عامًا، خلال استهداف طيران الاحتلال لنقطة للشرطة المدنية في مواصي خان يونس، جنوب قطاع غزة، رفقة 4 من زملائه.</p>
-            <ul class="welcome-facts">
-                <li><b>التاريخ:</b> 7 يونيو 2026</li>
-                <li><b>المكان:</b> مواصي خان يونس، جنوب قطاع غزة</li>
-            </ul>
-            <p class="welcome-desc">عمل في صفوف الشرطة المدنية الفلسطينية لحفظ الأمن في المحافظة، ونعته جمعية الكشافة الفلسطينية كقائد كشفي بارز. نظّم برلمان الشباب الفلسطيني بمحافظة خان يونس حفل تأبين تحت عنوان "وفاء القائد وعهد الشباب" تقديرًا لدوره الوطني بين الشباب والنازحين.</p>
-            <p class="welcome-rest">رحمه الله وتقبله في الشهداء الأبرار</p>
-            <button class="welcome-btn" id="welcomeCloseBtn" type="button">إغلاق</button>
+        <div class="news-modal-content">
+            <div class="news-modal-date" id="newsModalDate"></div>
+            <div class="news-modal-text" id="newsModalText"></div>
+            <div class="news-modal-gallery" id="newsModalGallery"></div>
         </div>
     </div>
 </div>
@@ -698,7 +790,6 @@
             toggle.addEventListener('click', function() {
                 links.classList.toggle('open');
             });
-            // Close on link click (mobile)
             links.querySelectorAll('a').forEach(function(link) {
                 link.addEventListener('click', function() {
                     links.classList.remove('open');
@@ -716,26 +807,76 @@
             }
         });
 
-        // ===== WELCOME MODAL =====
-        const overlay = document.getElementById('welcomeOverlay');
-        const closeBtn = document.getElementById('welcomeClose');
-        const closeBtn2 = document.getElementById('welcomeCloseBtn');
-        if (overlay) {
-            let alreadySeen = false;
-            try { alreadySeen = sessionStorage.getItem('founderWelcomeSeen') === '1'; } catch(e) {}
-            if (!alreadySeen) {
-                setTimeout(function() { overlay.classList.add('show'); }, 600);
-            }
-            function closeWelcome() {
-                overlay.classList.remove('show');
-                try { sessionStorage.setItem('founderWelcomeSeen', '1'); } catch(e) {}
-            }
-            if (closeBtn) closeBtn.addEventListener('click', closeWelcome);
-            if (closeBtn2) closeBtn2.addEventListener('click', closeWelcome);
-            overlay.addEventListener('click', function(e) {
-                if (e.target === overlay) closeWelcome();
+        // ===== NEWS MODAL =====
+        const modal = document.getElementById('newsModal');
+        const modalTitle = document.getElementById('newsModalTitle');
+        const modalDate = document.getElementById('newsModalDate');
+        const modalText = document.getElementById('newsModalText');
+        const modalGallery = document.getElementById('newsModalGallery');
+        const modalClose = document.getElementById('newsModalClose');
+        let lastFocusedNews = null;
+
+        function openNewsModal(card) {
+            const title = card.querySelector('h3')?.textContent || '';
+            const date = card.querySelector('.news-date')?.textContent || '';
+            const paragraphs = Array.from(card.querySelectorAll('.news-body p'));
+            const gallery = (card.dataset.gallery || '').split('|').filter(Boolean);
+
+            lastFocusedNews = card;
+            modalTitle.textContent = title;
+            modalDate.textContent = date;
+            modalDate.style.display = date ? 'block' : 'none';
+            modalText.textContent = '';
+            paragraphs.forEach(function(paragraph) {
+                const p = document.createElement('p');
+                p.textContent = paragraph.textContent;
+                modalText.appendChild(p);
+            });
+            modalGallery.textContent = '';
+            gallery.forEach(function(src) {
+                const img = document.createElement('img');
+                img.src = src;
+                img.alt = title;
+                img.loading = 'lazy';
+                modalGallery.appendChild(img);
+            });
+            modalGallery.style.display = gallery.length ? 'grid' : 'none';
+            modal.classList.add('show');
+            modal.setAttribute('aria-hidden', 'false');
+            document.body.style.overflow = 'hidden';
+            modalClose.focus();
+        }
+
+        function closeNewsModal() {
+            modal.classList.remove('show');
+            modal.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = '';
+            if (lastFocusedNews) lastFocusedNews.focus();
+        }
+
+        document.querySelectorAll('.news-card').forEach(function(card) {
+            card.addEventListener('click', function() {
+                openNewsModal(card);
+            });
+            card.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    openNewsModal(card);
+                }
+            });
+        });
+
+        if (modalClose) modalClose.addEventListener('click', closeNewsModal);
+        if (modal) {
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) closeNewsModal();
             });
         }
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && modal.classList.contains('show')) {
+                closeNewsModal();
+            }
+        });
     });
 </script>
 
