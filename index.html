@@ -1,11 +1,743 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>psypgaza</title>
+    <title>البرلمان الشبابي الفلسطيني الذكي | PYSP</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Tajawal:wght@400;700;900&display=swap">
+    <style>
+        /* ===== RESET & VARIABLES ===== */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #0B3D91;
+            --primary-light: #2E86DE;
+            --gold: #4FC3F7;
+            --bg: #f4f6f8;
+            --text: #1a1a1a;
+            --muted: #555;
+            --white: #fff;
+            --shadow: 0 8px 24px rgba(0,0,0,0.07);
+            --radius: 16px;
+        }
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+        }
+        a { text-decoration: none; color: inherit; }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        /* ===== NAVBAR ===== */
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            background: linear-gradient(135deg, var(--primary), #0a2a5e);
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        .nav-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 900;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 1.1rem;
+        }
+        .logo img {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            border: 2px solid var(--gold);
+            object-fit: cover;
+        }
+        .nav-links {
+            display: flex;
+            gap: 24px;
+            list-style: none;
+        }
+        .nav-links a {
+            font-weight: 700;
+            font-size: 0.95rem;
+            padding: 6px 0;
+            border-bottom: 2px solid transparent;
+            transition: 0.25s;
+        }
+        .nav-links a:hover {
+            color: var(--gold);
+            border-bottom-color: var(--gold);
+        }
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+        .nav-toggle span {
+            width: 26px;
+            height: 3px;
+            background: #fff;
+            border-radius: 4px;
+            transition: 0.3s;
+        }
+        /* Mobile nav */
+        @media (max-width: 768px) {
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--primary);
+                flex-direction: column;
+                align-items: center;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.4s ease;
+                padding: 0;
+                box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            }
+            .nav-links.open {
+                max-height: 400px;
+                padding: 16px 0;
+            }
+            .nav-links li { width: 100%; text-align: center; }
+            .nav-links a { display: block; padding: 12px; font-size: 1rem; }
+            .nav-toggle { display: flex; }
+        }
+        /* ===== HERO ===== */
+        .hero {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: #fff;
+            text-align: center;
+            padding: 80px 20px 90px;
+            position: relative;
+        }
+        .hero h1 {
+            font-family: 'Tajawal', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 10px;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 28px;
+        }
+        .hero-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+        .btn {
+            padding: 12px 30px;
+            border-radius: 40px;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            transition: 0.25s;
+            display: inline-block;
+        }
+        .btn-primary {
+            background: var(--gold);
+            color: #1a1a1a;
+        }
+        .btn-primary:hover { background: #fff; transform: translateY(-3px); }
+        .btn-outline {
+            background: transparent;
+            border: 2px solid #fff;
+            color: #fff;
+        }
+        .btn-outline:hover { background: #fff; color: var(--primary); transform: translateY(-3px); }
+        /* ===== SECTIONS ===== */
+        .section-title {
+            text-align: center;
+            font-family: 'Tajawal', sans-serif;
+            font-weight: 900;
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 6px;
+        }
+        .section-sub {
+            text-align: center;
+            color: var(--muted);
+            margin-bottom: 36px;
+            font-size: 1rem;
+        }
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+        }
+        .card {
+            background: var(--white);
+            padding: 24px 20px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            border-right: 4px solid var(--gold);
+            transition: 0.3s;
+        }
+        .card:hover { transform: translateY(-6px); box-shadow: 0 12px 30px rgba(0,0,0,0.12); }
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 14px;
+        }
+        .card-icon svg { width: 24px; height: 24px; stroke: #fff; fill: none; stroke-width: 2; }
+        .card h3 { color: var(--primary); font-family: 'Tajawal', sans-serif; margin-bottom: 6px; }
+        .card p { color: var(--muted); font-size: 0.95rem; }
+        .about-box {
+            background: var(--white);
+            padding: 28px 30px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            border-right: 4px solid var(--gold);
+            margin-bottom: 30px;
+        }
+        .about-box p { margin-bottom: 14px; }
+        .vm-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 24px 0;
+        }
+        @media (max-width: 700px) { .vm-grid { grid-template-columns: 1fr; } }
+        .vm-card {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: #fff;
+            padding: 24px;
+            border-radius: var(--radius);
+        }
+        .vm-card h4 { font-family: 'Tajawal', sans-serif; margin-bottom: 8px; }
+        .goals-list {
+            list-style: none;
+            padding: 0;
+        }
+        .goals-list li {
+            display: flex;
+            gap: 10px;
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+            font-size: 0.95rem;
+        }
+        .goals-list li svg { width: 18px; height: 18px; stroke: var(--primary); stroke-width: 3; fill: none; flex-shrink: 0; margin-top: 4px; }
+        .slogan-banner {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: #fff;
+            text-align: center;
+            padding: 28px;
+            border-radius: var(--radius);
+            font-family: 'Tajawal', sans-serif;
+            font-weight: 900;
+            font-size: 1.3rem;
+            margin-top: 20px;
+        }
+        /* ===== NEWS ===== */
+        .news-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            display: flex;
+            gap: 18px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            transition: 0.3s;
+        }
+        .news-card:hover { transform: translateY(-4px); box-shadow: 0 12px 28px rgba(0,0,0,0.1); }
+        .news-thumb {
+            width: 180px;
+            min-width: 180px;
+            background-size: cover;
+            background-position: center;
+            background-color: #d0d7de;
+        }
+        .news-body { padding: 16px 18px; }
+        .news-date { color: var(--gold); font-weight: 700; font-size: 0.8rem; }
+        .news-body h3 { color: var(--primary); font-family: 'Tajawal', sans-serif; margin: 4px 0; }
+        .news-body p { color: var(--muted); font-size: 0.9rem; }
+        .news-link { color: var(--primary); font-weight: 700; border-bottom: 2px solid var(--gold); }
+        @media (max-width: 600px) {
+            .news-card { flex-direction: column; }
+            .news-thumb { width: 100%; height: 160px; }
+        }
+        /* ===== FORM ===== */
+        .form-wrap {
+            background: var(--white);
+            padding: 32px 28px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            max-width: 640px;
+            margin: 0 auto;
+        }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+        @media (max-width: 600px) { .form-row { grid-template-columns: 1fr; } }
+        label { font-weight: 700; color: var(--primary); display: block; font-size: 0.9rem; }
+        input, textarea, select {
+            width: 100%;
+            padding: 12px 14px;
+            margin: 6px 0 14px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-family: 'Cairo', sans-serif;
+            font-size: 0.95rem;
+            transition: 0.2s;
+        }
+        input:focus, textarea:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(79, 195, 247, 0.2); }
+        textarea { min-height: 100px; resize: vertical; }
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 40px;
+            background: var(--primary);
+            color: #fff;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.25s;
+        }
+        .submit-btn:hover { background: var(--gold); color: #000; }
+        .btn-gform {
+            display: block;
+            text-align: center;
+            background: var(--primary);
+            color: #fff;
+            padding: 14px;
+            border-radius: 40px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            transition: 0.25s;
+        }
+        .btn-gform:hover { background: var(--primary-light); transform: translateY(-2px); }
+        .or-divider { display: flex; align-items: center; color: var(--muted); font-size: 0.8rem; margin: 16px 0; }
+        .or-divider::before, .or-divider::after { content: ''; flex: 1; height: 1px; background: #ddd; }
+        .or-divider span { padding: 0 14px; }
+        /* ===== FOOTER ===== */
+        .footer {
+            background: #071B3D;
+            color: #c9c9c9;
+            padding: 40px 20px 20px;
+            margin-top: 30px;
+        }
+        .footer-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.4fr 1fr 1fr;
+            gap: 30px;
+        }
+        @media (max-width: 800px) {
+            .footer-inner { grid-template-columns: 1fr; text-align: center; }
+        }
+        .footer h4 { color: #fff; font-family: 'Tajawal', sans-serif; margin-bottom: 12px; }
+        .footer ul { list-style: none; padding: 0; }
+        .footer ul li { margin-bottom: 8px; }
+        .footer ul li a { font-size: 0.9rem; transition: 0.2s; }
+        .footer ul li a:hover { color: var(--gold); }
+        .social-icons {
+            display: flex;
+            gap: 12px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+        @media (max-width: 800px) { .social-icons { justify-content: center; } }
+        .social-icons a {
+            width: 38px; height: 38px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.25s;
+        }
+        .social-icons a:hover { background: var(--gold); }
+        .social-icons svg { width: 18px; height: 18px; fill: #fff; }
+        .footer-bottom {
+            text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.08);
+            margin-top: 28px;
+            padding-top: 16px;
+            font-size: 0.8rem;
+            color: #888;
+        }
+        /* ===== FLOAT ===== */
+        .wa-float {
+            position: fixed;
+            bottom: 24px;
+            left: 24px;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 20px rgba(11,61,145,0.4);
+            z-index: 998;
+            transition: 0.25s;
+        }
+        .wa-float:hover { background: var(--primary-light); transform: scale(1.05); }
+        .wa-float svg { width: 28px; height: 28px; fill: #fff; }
+        .back-top {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            background: var(--gold);
+            color: #1a1a1a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+            opacity: 0;
+            pointer-events: none;
+            transition: 0.3s;
+            z-index: 998;
+        }
+        .back-top.show { opacity: 1; pointer-events: auto; }
+        .back-top svg { width: 20px; height: 20px; stroke: #1a1a1a; stroke-width: 2; fill: none; }
+        /* ===== WELCOME MODAL ===== */
+        .welcome-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(7,27,61,0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            z-index: 1200;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.35s ease;
+        }
+        .welcome-overlay.show { opacity: 1; pointer-events: auto; }
+        .welcome-box {
+            background: #fff;
+            max-width: 480px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            border-radius: 20px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+            transform: translateY(20px);
+            transition: transform 0.35s ease;
+        }
+        .welcome-overlay.show .welcome-box { transform: translateY(0); }
+        .welcome-banner {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            height: 90px;
+            position: relative;
+            border-radius: 20px 20px 0 0;
+            display: flex;
+            justify-content: center;
+        }
+        .welcome-close {
+            position: absolute;
+            top: 10px;
+            left: 14px;
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: #fff;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            font-size: 22px;
+            cursor: pointer;
+            line-height: 1;
+        }
+        .welcome-close:hover { background: rgba(255,255,255,0.35); }
+        .welcome-photo {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #fff;
+            position: absolute;
+            top: 40px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.3);
+        }
+        .welcome-content { padding: 70px 24px 28px; text-align: center; }
+        .welcome-tag { display: inline-block; background: rgba(11,61,145,0.08); color: var(--primary); font-size: 0.8rem; font-weight: 700; padding: 4px 16px; border-radius: 20px; margin-bottom: 8px; }
+        .welcome-content h3 { font-family: 'Tajawal', sans-serif; color: var(--primary); margin-bottom: 10px; }
+        .welcome-desc { color: var(--muted); font-size: 0.9rem; line-height: 1.8; text-align: right; margin: 0 0 12px; }
+        .welcome-facts { list-style: none; padding: 12px 16px; background: #f4f8ff; border-radius: 12px; text-align: right; margin: 0 0 14px; }
+        .welcome-facts li { font-size: 0.9rem; padding: 4px 0; }
+        .welcome-rest { font-family: 'Tajawal', sans-serif; color: var(--primary); font-weight: 700; margin: 0 0 16px; }
+        .welcome-btn { background: var(--primary); color: #fff; border: none; padding: 10px 32px; border-radius: 30px; font-weight: 700; cursor: pointer; transition: 0.25s; }
+        .welcome-btn:hover { background: var(--primary-light); }
+    </style>
 </head>
 <body>
-    <h1>psypgaza</h1>
+
+<!-- ===== NAVBAR ===== -->
+<nav class="navbar">
+    <div class="nav-inner">
+        <a class="logo" href="#top">
+            <img src="https://images.unsplash.com/photo-1582139329536-e7284fece509?w=100&h=100&fit=crop&crop=center" alt="logo" />
+            البرلمان الشبابي الذكي
+        </a>
+        <button class="nav-toggle" id="navToggle" aria-label="menu">
+            <span></span><span></span><span></span>
+        </button>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#about">من نحن</a></li>
+            <li><a href="#news">الأخبار</a></li>
+            <li><a href="#join">الانتساب</a></li>
+            <li><a href="#contact">تواصل</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="top">
+    <h1>البرلمان الشبابي الفلسطيني الذكي</h1>
+    <p>جيل واعٍ.. قيادة ملهمة</p>
+    <div class="hero-btns">
+        <a class="btn btn-primary" href="https://forms.gle/iDWdfQab4fhiTTT27" target="_blank">انضم إلينا الآن</a>
+        <a class="btn btn-outline" href="#about">تعرّف علينا</a>
+    </div>
+</section>
+
+<!-- ===== ABOUT ===== -->
+<section class="container" id="about">
+    <h2 class="section-title">من نحن</h2>
+    <p class="section-sub">مساحة شبابية فلسطينية لبناء قيادات واعية عبر الحوار والممارسة الديمقراطية</p>
+    <div class="about-box">
+        <p><strong>البرلمان الشبابي الفلسطيني الذكي (PYSP)</strong> هو منصة شبابية وطنية رقمية تهدف إلى تمكين الشباب الفلسطيني، وتطوير قدراتهم في مجالات القيادة، الحوار، الابتكار، والذكاء الاصطناعي، ليكونوا شركاء فاعلين في صناعة المستقبل.</p>
+        <p>انطلق البرلمان من إيمان عميق بأن الشباب هم الثروة الحقيقية للمجتمع، وأن الاستثمار في عقولهم ومهاراتهم هو الطريق لبناء مجتمع فلسطيني قادر على مواجهة التحديات وصناعة التغيير الإيجابي.</p>
+        <p>يسعى البرلمان إلى توفير مساحة شبابية تجمع الطاقات والمواهب من مختلف محافظات الوطن، وتعزيز المشاركة المجتمعية، وتنمية مهارات التفكير النقدي، والعمل الجماعي، واستخدام التكنولوجيا الحديثة لخدمة القضايا الوطنية والتنموية.</p>
+    </div>
+
+    <div class="card-grid">
+        <div class="card">
+            <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M3 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M17 3.5a4 4 0 0 1 0 7.5"/><path d="M21 21v-2a4 4 0 0 0-3-3.87"/></svg></div>
+            <h3>جلسات محاكاة برلمانية</h3>
+            <p>تدريب الأعضاء على آليات التشريع والمساءلة عبر جلسات محاكاة واقعية.</p>
+        </div>
+        <div class="card">
+            <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg></div>
+            <h3>مبادرات مجتمعية</h3>
+            <p>مشاريع ميدانية تخدم المجتمع المحلي وتعزز روح المسؤولية.</p>
+        </div>
+        <div class="card">
+            <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
+            <h3>برامج تدريبية</h3>
+            <p>ورش ودورات في القيادة والخطابة والتفكير النقدي والذكاء الاصطناعي.</p>
+        </div>
+    </div>
+
+    <div class="vm-grid">
+        <div class="vm-card"><h4>🔭 الرؤية</h4><p>شباب فلسطيني ذكي، مبدع، ومؤثر يقود مسيرة المستقبل.</p></div>
+        <div class="vm-card"><h4>🎯 الرسالة</h4><p>تمكين الشباب الفلسطيني بالمعرفة والمهارات الحديثة، وتعزيز دورهم في التنمية وصناعة القرار.</p></div>
+    </div>
+
+    <div style="background:#fff;border-radius:var(--radius);padding:24px 28px;box-shadow:var(--shadow);border-right:4px solid var(--gold);margin:20px 0;">
+        <h4 style="font-family:'Tajawal',sans-serif;color:var(--primary);">أهدافنا</h4>
+        <ul class="goals-list">
+            <li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>إعداد قيادات شبابية تمتلك مهارات القرن الحادي والعشرين.</li>
+            <li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>نشر ثقافة الذكاء الاصطناعي والتحول الرقمي بين الشباب.</li>
+            <li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>تعزيز قيم المواطنة، العمل التطوعي، والمشاركة المجتمعية.</li>
+            <li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>دعم الابتكار وريادة الأعمال والمبادرات الشبابية.</li>
+            <li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>بناء شبكة وطنية من الشباب القادرين على صناعة الأثر الإيجابي.</li>
+        </ul>
+    </div>
+    <div class="slogan-banner">"نصنع قادة المستقبل… بالذكاء، والمعرفة، والإبداع."</div>
+</section>
+
+<!-- ===== NEWS ===== -->
+<section class="container" id="news">
+    <h2 class="section-title">آخر الأخبار</h2>
+    <p class="section-sub">تابع مستجدات البرلمان الشبابي وأنشطته</p>
+
+    <div class="news-card">
+        <div class="news-thumb" style="background-image:url('https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?w=400&h=250&fit=crop');"></div>
+        <div class="news-body">
+            <span class="news-date">17 يوليو 2026</span>
+            <h3>الإعلان الرسمي عن انطلاق البرلمان الشبابي الفلسطيني الذكي</h3>
+            <p>في محطة وطنية وشبابية مميزة، يعلن البرلمان الشبابي الفلسطيني الذكي (PYSP) عن انطلاقه الرسمي يوم 17 يوليو 2026، ليبدأ مرحلة جديدة من العمل الشبابي الرقمي الهادف إلى تمكين الشباب الفلسطيني.</p>
+            <a class="news-link" href="#">قراءة المزيد ←</a>
+        </div>
+    </div>
+
+    <div class="news-card">
+        <div class="news-thumb" style="background-image:url('https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=400&h=250&fit=crop');"></div>
+        <div class="news-body">
+            <span class="news-date">10 يوليو 2026</span>
+            <h3>البرلمان يفتح أبواب الانتساب للشباب</h3>
+            <p>أعلن البرلمان الشبابي الفلسطيني الذكي عن بدء استقبال طلبات الانتساب للشباب الراغبين في الانضمام إلى هذه التجربة الوطنية الرقمية، ويهدف إلى توسيع دائرة المشاركة الشبابية.</p>
+            <a class="news-link" href="#">قراءة المزيد ←</a>
+        </div>
+    </div>
+
+    <div class="news-card">
+        <div class="news-thumb" style="background-image:url('https://images.unsplash.com/photo-1531482615713-2afd69097998?w=400&h=250&fit=crop');"></div>
+        <div class="news-body">
+            <span class="news-date">5 يوليو 2026</span>
+            <h3>برامج تدريبية في الذكاء الاصطناعي والقيادة الشبابية</h3>
+            <p>ضمن رؤيته لبناء جيل شبابي مواكب للتطورات العالمية، يعمل البرلمان على تقديم برامج تدريبية متخصصة في الذكاء الاصطناعي، هندسة الأوامر، المهارات الرقمية، والقيادة الشبابية.</p>
+            <a class="news-link" href="#">قراءة المزيد ←</a>
+        </div>
+    </div>
+</section>
+
+<!-- ===== JOIN ===== -->
+<section class="container" id="join">
+    <h2 class="section-title">طلب الانتساب</h2>
+    <p class="section-sub">كن جزءًا من البرلمان الشبابي الفلسطيني الذكي</p>
+    <div class="form-wrap">
+        <a class="btn-gform" href="https://forms.gle/iDWdfQab4fhiTTT27" target="_blank">📋 التقديم عبر نموذج Google الرسمي</a>
+        <div class="or-divider"><span>أو عبّئ النموذج المباشر أدناه</span></div>
+        <form action="https://formspree.io/f/xpqvawdn" method="POST">
+            <input type="hidden" name="_subject" value="طلب انتساب جديد - PYSP" />
+            <input type="text" name="_gotcha" style="display:none" tabindex="-1" />
+            <div class="form-row">
+                <div><label for="fullname">الاسم الكامل</label><input id="fullname" name="fullname" placeholder="أحمد محمد" required type="text" /></div>
+                <div><label for="governorate">المحافظة</label><input id="governorate" name="governorate" placeholder="نابلس" required type="text" /></div>
+            </div>
+            <div class="form-row">
+                <div><label for="phone">رقم الهاتف</label><input id="phone" name="phone" placeholder="05XXXXXXXX" required type="tel" /></div>
+                <div><label for="email">البريد الإلكتروني</label><input id="email" name="email" placeholder="example@email.com" type="email" /></div>
+            </div>
+            <label for="motivation">الدوافع للانضمام</label>
+            <textarea id="motivation" name="motivation" placeholder="اكتب هنا لماذا ترغب بالانضمام..." required></textarea>
+            <button class="submit-btn" type="submit">إرسال الطلب</button>
+            <p style="text-align:center;font-size:0.8rem;color:var(--muted);margin-top:10px;">سيتم التواصل معك خلال أيام قليلة من فريق البرلمان</p>
+        </form>
+    </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer" id="contact">
+    <div class="footer-inner">
+        <div>
+            <h4>البرلمان الشبابي الفلسطيني الذكي</h4>
+            <p>جيل واعٍ.. قيادة ملهمة. مساحة شبابية فلسطينية تٌعنى ببناء قدرات القيادة الشابة عبر المحاكاة البرلمانية والمبادرات المجتمعية.</p>
+            <div class="social-icons">
+                <a href="https://www.facebook.com/share/1Bo8DKwoGp/" target="_blank" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M22 12a10 10 0 1 0-11.5 9.9v-7H7.9V12h2.6V9.8c0-2.6 1.5-4 3.9-4 1.1 0 2.3.2 2.3.2v2.5h-1.3c-1.3 0-1.7.8-1.7 1.6V12h2.9l-.5 2.9h-2.4v7A10 10 0 0 0 22 12z"/></svg></a>
+                <a href="https://t.me/akareem91" target="_blank" aria-label="Telegram"><svg viewBox="0 0 24 24"><path d="M21.9 4.3 18.6 20c-.2 1-.9 1.2-1.7.8l-4.7-3.5-2.3 2.2c-.3.3-.5.5-1 .5l.3-4.9L18 6.5c.5-.4-.1-.7-.7-.3L6.4 13.2l-4.7-1.5c-1-.3-1-1 .2-1.5L20.6 3c.9-.3 1.6.2 1.3 1.3z"/></svg></a>
+                <a href="https://wa.me/972599191010" target="_blank" aria-label="WhatsApp"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3.1.8.8-3-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.2-.6.8-.8 1-.1.2-.3.2-.5.1-.2-.1-1-.4-1.9-1.2-.7-.6-1.2-1.4-1.3-1.6-.1-.2 0-.4.1-.5.1-.1.2-.3.4-.4.1-.1.2-.3.2-.4.1-.2 0-.3 0-.4 0-.1-.6-1.4-.8-1.9-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.2-.9.9-.9 2.1s.9 2.4 1.1 2.6c.1.2 1.8 2.8 4.4 3.8.6.3 1.1.4 1.5.5.6.2 1.2.2 1.6.1.5-.1 1.4-.6 1.6-1.1.2-.5.2-1 .1-1.1-.1-.1-.2-.2-.4-.3z"/></svg></a>
+            </div>
+        </div>
+        <div>
+            <h4>روابط سريعة</h4>
+            <ul>
+                <li><a href="#about">من نحن</a></li>
+                <li><a href="#news">الأخبار</a></li>
+                <li><a href="#join">الانتساب</a></li>
+            </ul>
+        </div>
+        <div>
+            <h4>تواصل معنا</h4>
+            <ul>
+                <li><a href="https://wa.me/972599191010" target="_blank">واتساب: 00972599191010</a></li>
+                <li><a href="https://t.me/akareem91" target="_blank">t.me/akareem91</a></li>
+                <li><a href="https://www.facebook.com/share/1Bo8DKwoGp/" target="_blank">صفحتنا على فيسبوك</a></li>
+                <li>فلسطين</li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        &copy; 2026 البرلمان الشبابي الفلسطيني الذكي - جميع الحقوق محفوظة
+    </div>
+</footer>
+
+<!-- ===== FLOATING BUTTONS ===== -->
+<a class="wa-float" href="https://wa.me/972599191010" target="_blank" aria-label="WhatsApp">
+    <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3.1.8.8-3-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.2-.6.8-.8 1-.1.2-.3.2-.5.1-.2-.1-1-.4-1.9-1.2-.7-.6-1.2-1.4-1.3-1.6-.1-.2 0-.4.1-.5.1-.1.2-.3.4-.4.1-.1.2-.3.2-.4.1-.2 0-.3 0-.4 0-.1-.6-1.4-.8-1.9-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.2-.9.9-.9 2.1s.9 2.4 1.1 2.6c.1.2 1.8 2.8 4.4 3.8.6.3 1.1.4 1.5.5.6.2 1.2.2 1.6.1.5-.1 1.4-.6 1.6-1.1.2-.5.2-1 .1-1.1-.1-.1-.2-.2-.4-.3z"/></svg>
+</a>
+
+<a class="back-top" href="#top" id="backTop" aria-label="back to top">
+    <svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+</a>
+
+<!-- ===== WELCOME MODAL ===== -->
+<div class="welcome-overlay" id="welcomeOverlay">
+    <div class="welcome-box">
+        <div class="welcome-banner">
+            <button class="welcome-close" id="welcomeClose" aria-label="close">✕</button>
+            <img class="welcome-photo" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face" alt="الشهيد حسام الطنطاوي" />
+        </div>
+        <div class="welcome-content">
+            <span class="welcome-tag">مؤسس البرلمان الشبابي الفلسطيني الذكي</span>
+            <h3>المناضل حسام زهري محمود الطنطاوي (أبو العبد)</h3>
+            <p class="welcome-desc">قائد كشفي وعنصر في الشرطة المدنية بقطاع غزة، ارتقى شهيدًا في 7 يونيو 2026 عن عمر 49 عامًا، خلال استهداف طيران الاحتلال لنقطة للشرطة المدنية في مواصي خان يونس، جنوب قطاع غزة، رفقة 4 من زملائه.</p>
+            <ul class="welcome-facts">
+                <li><b>التاريخ:</b> 7 يونيو 2026</li>
+                <li><b>المكان:</b> مواصي خان يونس، جنوب قطاع غزة</li>
+            </ul>
+            <p class="welcome-desc">عمل في صفوف الشرطة المدنية الفلسطينية لحفظ الأمن في المحافظة، ونعته جمعية الكشافة الفلسطينية كقائد كشفي بارز. نظّم برلمان الشباب الفلسطيني بمحافظة خان يونس حفل تأبين تحت عنوان "وفاء القائد وعهد الشباب" تقديرًا لدوره الوطني بين الشباب والنازحين.</p>
+            <p class="welcome-rest">رحمه الله وتقبله في الشهداء الأبرار</p>
+            <button class="welcome-btn" id="welcomeCloseBtn" type="button">إغلاق</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // ===== NAV TOGGLE =====
+    document.addEventListener('DOMContentLoaded', function() {
+        const toggle = document.getElementById('navToggle');
+        const links = document.getElementById('navLinks');
+        if (toggle && links) {
+            toggle.addEventListener('click', function() {
+                links.classList.toggle('open');
+            });
+            // Close on link click (mobile)
+            links.querySelectorAll('a').forEach(function(link) {
+                link.addEventListener('click', function() {
+                    links.classList.remove('open');
+                });
+            });
+        }
+
+        // ===== BACK TO TOP =====
+        const backTop = document.getElementById('backTop');
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 400) {
+                backTop.classList.add('show');
+            } else {
+                backTop.classList.remove('show');
+            }
+        });
+
+        // ===== WELCOME MODAL =====
+        const overlay = document.getElementById('welcomeOverlay');
+        const closeBtn = document.getElementById('welcomeClose');
+        const closeBtn2 = document.getElementById('welcomeCloseBtn');
+        if (overlay) {
+            let alreadySeen = false;
+            try { alreadySeen = sessionStorage.getItem('founderWelcomeSeen') === '1'; } catch(e) {}
+            if (!alreadySeen) {
+                setTimeout(function() { overlay.classList.add('show'); }, 600);
+            }
+            function closeWelcome() {
+                overlay.classList.remove('show');
+                try { sessionStorage.setItem('founderWelcomeSeen', '1'); } catch(e) {}
+            }
+            if (closeBtn) closeBtn.addEventListener('click', closeWelcome);
+            if (closeBtn2) closeBtn2.addEventListener('click', closeWelcome);
+            overlay.addEventListener('click', function(e) {
+                if (e.target === overlay) closeWelcome();
+            });
+        }
+    });
+</script>
+
 </body>
 </html>
