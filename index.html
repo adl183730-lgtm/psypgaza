@@ -119,7 +119,7 @@
         }
         /* ===== HERO with Unsplash background ===== */
         .hero {
-            background: linear-gradient(135deg, rgba(11,61,145,0.85), rgba(46,134,222,0.75)), url('https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?w=1600&h=600&fit=crop&crop=center') center/cover no-repeat;
+            background: linear-gradient(135deg, rgba(11,61,145,0.85), rgba(46,134,222,0.75)), url('/docs/p.jpeg') center/cover no-repeat;
             color: #fff;
             text-align: center;
             padding: 100px 20px 110px;
@@ -489,6 +489,131 @@
         }
         .back-top.show { opacity: 1; pointer-events: auto; }
         .back-top svg { width: 20px; height: 20px; stroke: #1a1a1a; stroke-width: 2; fill: none; }
+        /* ===== LEADER WELCOME MODAL ===== */
+        .leader-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(7,27,61,0.8);
+            display: none;
+            padding: 24px;
+            z-index: 1400;
+            overflow-y: auto;
+        }
+        .leader-modal.show {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+        }
+        .leader-modal-panel {
+            background: #fff;
+            width: min(980px, 100%);
+            border-radius: 18px;
+            overflow: hidden;
+            display: block;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.45);
+        }
+        .leader-media {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            display: flex;
+            justify-content: center;
+            padding: 28px 24px 12px;
+        }
+        .leader-media img {
+            width: 180px;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 5px solid #fff;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+            display: block;
+        }
+        .leader-content {
+            padding: 20px 26px 24px;
+            overflow: visible;
+        }
+        .leader-head {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 14px;
+        }
+        .leader-kicker {
+            color: var(--gold);
+            font-weight: 800;
+            font-size: 0.86rem;
+            margin-bottom: 4px;
+        }
+        .leader-content h2 {
+            font-family: 'Tajawal', sans-serif;
+            color: var(--primary);
+            line-height: 1.4;
+            margin: 0;
+        }
+        .leader-close {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            background: var(--primary);
+            color: #fff;
+            font-size: 25px;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+        .leader-close:hover { background: var(--primary-light); }
+        .leader-content p {
+            color: var(--text);
+            line-height: 1.9;
+            margin-bottom: 12px;
+        }
+        .leader-facts {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 10px;
+            margin: 16px 0;
+        }
+        .leader-fact {
+            background: #f4f8ff;
+            border-right: 3px solid var(--gold);
+            border-radius: 10px;
+            padding: 10px 12px;
+            font-size: 0.9rem;
+        }
+        .leader-fact strong {
+            display: block;
+            color: var(--primary);
+            margin-bottom: 2px;
+        }
+        .leader-content h3 {
+            color: var(--primary);
+            font-family: 'Tajawal', sans-serif;
+            margin: 18px 0 8px;
+        }
+        .leader-list {
+            margin: 0 0 10px;
+            padding: 0 20px 0 0;
+        }
+        .leader-list li {
+            margin-bottom: 6px;
+            line-height: 1.8;
+        }
+        @media (max-width: 760px) {
+            .leader-modal { padding: 0; }
+            .leader-modal-panel {
+                width: 100%;
+                border-radius: 0;
+            }
+            .leader-media { padding: 20px 16px 10px; }
+            .leader-media img {
+                width: 140px;
+                height: 140px;
+            }
+            .leader-content {
+                padding: 18px;
+            }
+            .leader-facts { grid-template-columns: 1fr; }
+        }
         /* ===== WELCOME MODAL ===== */
         .welcome-overlay {
             position: fixed;
@@ -648,57 +773,7 @@
 <section class="container" id="news">
     <h2 class="section-title">آخر الأخبار</h2>
     <p class="section-sub">تابع مستجدات البرلمان الشبابي وأنشطته</p>
-
-    <div class="news-card" tabindex="0" role="button" data-gallery="docs/news/1/1.jpeg|docs/news/1/2.jpeg|docs/news/1/3.jpeg">
-        <div class="news-thumb" style="background-image:url('docs/news/1/1.jpeg');"></div>
-        <div class="news-body">
-            <span class="news-date">17 يوليو 2026</span>
-            <h3>الإعلان الرسمي عن انطلاق البرلمان الشبابي الفلسطيني الذكي</h3>
-            <p>في محطة وطنية وشبابية مميزة، يعلن البرلمان الشبابي الفلسطيني الذكي (PYSP) عن انطلاقه الرسمي يوم 17 يوليو 2026، ليبدأ مرحلة جديدة من العمل الشبابي الرقمي الهادف إلى تمكين الشباب الفلسطيني وتعزيز حضورهم في مجالات القيادة والتكنولوجيا والابتكار.</p>
-            <p>ويأتي إطلاق البرلمان كمنصة شبابية حديثة تجمع الطاقات الفلسطينية من مختلف المناطق، وتفتح المجال أمام الشباب للمشاركة في برامج تدريبية ومبادرات نوعية تهدف إلى بناء جيل قادر على صناعة المستقبل.</p>
-            <p>ويؤكد فريق البرلمان أن هذه الانطلاقة تمثل بداية لمسيرة طويلة من العمل والعطاء، نحو بناء نموذج شبابي فلسطيني يعتمد على المعرفة والذكاء الاصطناعي والتواصل الفعال.</p>
-            <p>انتظروا بداية رحلة جديدة... حيث تتحول أفكار الشباب إلى إنجازات.</p>
-        </div>
-    </div>
-
-    <div class="news-card" tabindex="0" role="button" data-gallery="docs/news/2/1.jpeg|docs/news/2/2.jpeg|docs/news/2/3.jpeg|docs/news/2/4.jpeg">
-        <div class="news-thumb" style="background-image:url('docs/news/2/1.jpeg');"></div>
-        <div class="news-body">
-            <h3>البرلمان الشبابي الفلسطيني الذكي يعقد اللقاء التدريبي الثاني والثالث بحضور رئيس جمعية المدربين الفلسطينيين</h3>
-            <p>عقد البرلمان الشبابي الفلسطيني الذكي اللقاء التدريبي الثاني ضمن البرنامج التدريبي المتخصص الذي يهدف إلى إعداد وتأهيل جيل شبابي يمتلك أدوات المستقبل ومهارات القرن الحادي والعشرين، وذلك بمشاركة واسعة من المتدربين من مختلف محافظات قطاع غزة.</p>
-            <p>وشهد اللقاء حضور الأستاذ أيمن الميمي، رئيس جمعية المدربين الفلسطينيين، الذي استهل كلمته بتوجيه التحية لأبناء الشعب الفلسطيني، مشيدًا بصمودهم وإرادتهم في مواصلة التعلم وبناء المستقبل رغم الظروف الاستثنائية.</p>
-            <p>كما رحب بالمتدربين، مؤكدًا أن الاستثمار الحقيقي يبدأ من الاستثمار في الإنسان، وقدم لهم خمس رسائل ونصائح أساسية لتطوير ذواتهم، تمثلت في أهمية التعلم المستمر، وبناء الشخصية القيادية، وتنمية مهارات التواصل، واستثمار الوقت، والإيمان بالقدرات الشخصية والسعي الدائم نحو التميز والإبداع.</p>
-            <p>ويقدم الدورة التدريبية الدكتور عبدالكريم أبو مصطفى، حيث تتضمن ستة محاور رئيسية صُممت لتمكين المشاركين من امتلاك مهارات القرن الحادي والعشرين، وفي مقدمتها مهارات الذكاء الاصطناعي، وهندسة الأوامر (Prompt Engineering)، والتفكير النقدي، والإنتاج الرقمي، والتواصل الفعال، واستخدام أحدث الأدوات التقنية في التعليم والعمل.</p>
-            <p>وأكد القائمون على البرنامج أن البرلمان الشبابي الفلسطيني الذكي يسعى إلى بناء جيل قادر على قيادة التغيير الإيجابي، ومواكبة التحولات الرقمية العالمية، بما يعزز حضور الشباب الفلسطيني في مجالات الابتكار والمعرفة، ويمنحهم الأدوات اللازمة للمنافسة والريادة على المستويين المحلي والدولي.</p>
-        </div>
-    </div>
-
-    <div class="news-card" tabindex="0" role="button">
-        <div class="news-thumb" style="background-image:url('docs/placeholder.avif');"></div>
-        <div class="news-body">
-            <h3>البرلمان الشبابي الفلسطيني الذكي يفتح أبواب الانتساب للشباب</h3>
-            <p>أعلن البرلمان الشبابي الفلسطيني الذكي عن بدء استقبال طلبات الانتساب للشباب الراغبين في الانضمام إلى هذه التجربة الوطنية الرقمية.</p>
-            <p>ويهدف الانتساب إلى توسيع دائرة المشاركة الشبابية، وإتاحة الفرصة أمام أصحاب الأفكار والمواهب للمساهمة في برامج البرلمان ومشاريعه المستقبلية.</p>
-            <p>يدعو البرلمان جميع الشباب الفلسطيني الطموح إلى التسجيل والانضمام إلى مجتمع شبابي يسعى للتعلم والتطوير وصناعة الأثر.</p>
-        </div>
-    </div>
-
-    <div class="news-card" tabindex="0" role="button">
-        <div class="news-thumb" style="background-image:url('docs/placeholder.avif');"></div>
-        <div class="news-body">
-            <h3>برامج تدريبية نوعية في الذكاء الاصطناعي والقيادة الشبابية</h3>
-            <p>ضمن رؤيته لبناء جيل شبابي مواكب للتطورات العالمية، يعمل البرلمان الشبابي الفلسطيني الذكي على تقديم برامج تدريبية متخصصة في الذكاء الاصطناعي، هندسة الأوامر، المهارات الرقمية، والقيادة الشبابية.</p>
-            <p>وتهدف هذه البرامج إلى تزويد الشباب بالأدوات الحديثة التي تساعدهم على النجاح في المستقبل الرقمي.</p>
-        </div>
-    </div>
-
-    <div class="news-card" tabindex="0" role="button">
-        <div class="news-thumb" style="background-image:url('docs/placeholder.avif');"></div>
-        <div class="news-body">
-            <h3>مجتمع شبابي فلسطيني يجمع الطاقات من مختلف المحافظات</h3>
-            <p>يواصل البرلمان الشبابي الفلسطيني الذكي العمل على بناء شبكة شبابية واسعة تضم الشباب الفلسطيني من مختلف المحافظات، لتعزيز التعاون وتبادل الخبرات، وإطلاق مبادرات تخدم المجتمع.</p>
-        </div>
-    </div>
+    <div id="newsList"></div>
 </section>
 
 <!-- ===== JOIN (Google Form only) ===== -->
@@ -767,6 +842,52 @@
     <svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
 </a>
 
+<div class="leader-modal" id="leaderModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="leaderModalTitle">
+    <div class="leader-modal-panel">
+        <div class="leader-media">
+            <img src="docs/leader.jpeg" alt="الشهيد حسام زهري محمود الطنطاوي">
+        </div>
+        <div class="leader-content">
+            <div class="leader-head">
+                <div>
+                    <div class="leader-kicker">سيرة قيادية</div>
+                    <h2 id="leaderModalTitle">الشهيد حسام زهري محمود الطنطاوي (أبو العبد)</h2>
+                </div>
+                <button class="leader-close" id="leaderModalClose" type="button" aria-label="إغلاق">×</button>
+            </div>
+            <p>من مواليد مخيم رفح للاجئين عام 1976م، وينحدر من عائلة فلسطينية هُجّرت من قرية يبنا قضاء الرملة المحتلة عام 1948م. نشأ في بيئة تعكس معاناة اللجوء والصمود، ما أسهم في تكوين وعيه الوطني المبكر وانخراطه في العمل المجتمعي والنضالي منذ سن الشباب.</p>
+            <div class="leader-facts">
+                <div class="leader-fact"><strong>الميلاد</strong>مخيم رفح للاجئين، 1976م</div>
+                <div class="leader-fact"><strong>الأصل</strong>قرية يبنا، قضاء الرملة المحتلة</div>
+                <div class="leader-fact"><strong>المسار</strong>عمل وطني، مجتمعي، شبابي، ورياضي</div>
+                <div class="leader-fact"><strong>الاستشهاد</strong>خان يونس، 7/6/2026م</div>
+            </div>
+            <h3>المسيرة القيادية</h3>
+            <p>بدأ نشاطه الوطني من خلال حركة الشبيبة التابعة لحركة فتح أثناء دراسته الثانوية، وشارك في العمل الكشفي وتولى مسؤولية فرقة الدبكة، ثم انخرط في العمل المجتمعي عبر اللجان الشعبية، والتحق بالعمل في وزارة الصحة الفلسطينية داخل مستشفى الشهيد أبو يوسف النجار في رفح.</p>
+            <h3>مواقع ومؤسسات</h3>
+            <ul class="leader-list">
+                <li>المدير التنفيذي لجمعية أسدود الخيرية.</li>
+                <li>المدير التنفيذي لجمعية فلسطين بلا حدود.</li>
+                <li>مؤسس وأحد القادة في أكاديمية الياسر للبناء والتأهيل.</li>
+                <li>رئيس أكاديمية الياسر لاحقًا.</li>
+                <li>رئيس البرلمان الشبابي الفلسطيني في الوطن والشتات.</li>
+            </ul>
+            <h3>أثره الشبابي</h3>
+            <p>كان له دور بارز في تنظيم معسكرات "حراس الفكرة" الشبابية بالتعاون مع المجلس الأعلى للشباب والرياضة، وساهم في إعداد وتأهيل أجيال شبابية فلسطينية على المستويات القيادية والوطنية، كما كان عضوًا فاعلًا في لجان نادي خدمات رفح الرياضي.</p>
+            <h3>صفات قيادية</h3>
+            <ul class="leader-list">
+                <li>روح المبادرة والعمل الجماعي.</li>
+                <li>القدرة على التنظيم وبناء المؤسسات.</li>
+                <li>الالتزام الوطني العميق.</li>
+                <li>الاهتمام بالشباب وتمكينهم.</li>
+                <li>الجمع بين العمل الميداني والمؤسسي.</li>
+            </ul>
+            <h3>الإرث</h3>
+            <p>ترك الشهيد حسام الطنطاوي إرثًا كبيرًا يتمثل في مؤسسات شبابية ومشاريع تدريبية وأثر اجتماعي واضح في محيطه، وتؤكد سيرته أن القيادة تبدأ من الخدمة المجتمعية، وأن بناء الإنسان هو أساس بناء الوطن، وأن العمل الشبابي استثمار في المستقبل.</p>
+        </div>
+    </div>
+</div>
+
 <div class="news-modal" id="newsModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="newsModalTitle">
     <div class="news-modal-panel">
         <div class="news-modal-head">
@@ -807,36 +928,156 @@
             }
         });
 
+        // ===== LEADER WELCOME MODAL =====
+        const leaderModal = document.getElementById('leaderModal');
+        const leaderModalClose = document.getElementById('leaderModalClose');
+
+        function openLeaderModal() {
+            if (!leaderModal) return;
+            leaderModal.classList.add('show');
+            leaderModal.setAttribute('aria-hidden', 'false');
+            document.body.style.overflow = 'hidden';
+            if (leaderModalClose) leaderModalClose.focus();
+        }
+
+        function closeLeaderModal() {
+            if (!leaderModal) return;
+            leaderModal.classList.remove('show');
+            leaderModal.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = '';
+        }
+
+        setTimeout(openLeaderModal, 450);
+        if (leaderModalClose) leaderModalClose.addEventListener('click', closeLeaderModal);
+        if (leaderModal) {
+            leaderModal.addEventListener('click', function(e) {
+                if (e.target === leaderModal) closeLeaderModal();
+            });
+        }
+
         // ===== NEWS MODAL =====
+        const placeholderImage = 'docs/placeholder.avif';
+        // Add future news here: title, optional date, excerpt, optional images, and full content.
+        const newsItems = [
+            {
+                title: 'الإعلان الرسمي عن انطلاق البرلمان الشبابي الفلسطيني الذكي',
+                date: '17 يوليو 2026',
+                excerpt: 'في محطة وطنية وشبابية مميزة، يعلن البرلمان الشبابي الفلسطيني الذكي عن انطلاقه الرسمي ليبدأ مرحلة جديدة من العمل الشبابي الرقمي.',
+                images: ['docs/news/1/1.jpeg', 'docs/news/1/2.jpeg', 'docs/news/1/3.jpeg'],
+                content: [
+                    'في محطة وطنية وشبابية مميزة، يعلن البرلمان الشبابي الفلسطيني الذكي (PYSP) عن انطلاقه الرسمي يوم 17 يوليو 2026، ليبدأ مرحلة جديدة من العمل الشبابي الرقمي الهادف إلى تمكين الشباب الفلسطيني وتعزيز حضورهم في مجالات القيادة والتكنولوجيا والابتكار.',
+                    'ويأتي إطلاق البرلمان كمنصة شبابية حديثة تجمع الطاقات الفلسطينية من مختلف المناطق، وتفتح المجال أمام الشباب للمشاركة في برامج تدريبية ومبادرات نوعية تهدف إلى بناء جيل قادر على صناعة المستقبل.',
+                    'ويؤكد فريق البرلمان أن هذه الانطلاقة تمثل بداية لمسيرة طويلة من العمل والعطاء، نحو بناء نموذج شبابي فلسطيني يعتمد على المعرفة والذكاء الاصطناعي والتواصل الفعال.',
+                    'انتظروا بداية رحلة جديدة... حيث تتحول أفكار الشباب إلى إنجازات.'
+                ]
+            },
+            {
+                title: 'البرلمان الشبابي الفلسطيني الذكي يعقد اللقاء التدريبي الثاني والثالث بحضور رئيس جمعية المدربين الفلسطينيين',
+                excerpt: 'عقد البرلمان الشبابي الفلسطيني الذكي اللقاء التدريبي الثاني ضمن برنامجه المتخصص لإعداد جيل شبابي يمتلك أدوات المستقبل ومهارات القرن الحادي والعشرين.',
+                images: ['docs/news/2/1.jpeg', 'docs/news/2/2.jpeg', 'docs/news/2/3.jpeg', 'docs/news/2/4.jpeg'],
+                content: [
+                    'عقد البرلمان الشبابي الفلسطيني الذكي اللقاء التدريبي الثاني ضمن البرنامج التدريبي المتخصص الذي يهدف إلى إعداد وتأهيل جيل شبابي يمتلك أدوات المستقبل ومهارات القرن الحادي والعشرين، وذلك بمشاركة واسعة من المتدربين من مختلف محافظات قطاع غزة.',
+                    'وشهد اللقاء حضور الأستاذ أيمن الميمي، رئيس جمعية المدربين الفلسطينيين، الذي استهل كلمته بتوجيه التحية لأبناء الشعب الفلسطيني، مشيدًا بصمودهم وإرادتهم في مواصلة التعلم وبناء المستقبل رغم الظروف الاستثنائية.',
+                    'كما رحب بالمتدربين، مؤكدًا أن الاستثمار الحقيقي يبدأ من الاستثمار في الإنسان، وقدم لهم خمس رسائل ونصائح أساسية لتطوير ذواتهم، تمثلت في أهمية التعلم المستمر، وبناء الشخصية القيادية، وتنمية مهارات التواصل، واستثمار الوقت، والإيمان بالقدرات الشخصية والسعي الدائم نحو التميز والإبداع.',
+                    'ويقدم الدورة التدريبية الدكتور عبدالكريم أبو مصطفى، حيث تتضمن ستة محاور رئيسية صُممت لتمكين المشاركين من امتلاك مهارات القرن الحادي والعشرين، وفي مقدمتها مهارات الذكاء الاصطناعي، وهندسة الأوامر (Prompt Engineering)، والتفكير النقدي، والإنتاج الرقمي، والتواصل الفعال، واستخدام أحدث الأدوات التقنية في التعليم والعمل.',
+                    'وأكد القائمون على البرنامج أن البرلمان الشبابي الفلسطيني الذكي يسعى إلى بناء جيل قادر على قيادة التغيير الإيجابي، ومواكبة التحولات الرقمية العالمية، بما يعزز حضور الشباب الفلسطيني في مجالات الابتكار والمعرفة، ويمنحهم الأدوات اللازمة للمنافسة والريادة على المستويين المحلي والدولي.'
+                ]
+            },
+            {
+                title: 'البرلمان الشبابي الفلسطيني الذكي يفتح أبواب الانتساب للشباب',
+                excerpt: 'أعلن البرلمان الشبابي الفلسطيني الذكي عن بدء استقبال طلبات الانتساب للشباب الراغبين في الانضمام إلى هذه التجربة الوطنية الرقمية.',
+                content: [
+                    'أعلن البرلمان الشبابي الفلسطيني الذكي عن بدء استقبال طلبات الانتساب للشباب الراغبين في الانضمام إلى هذه التجربة الوطنية الرقمية.',
+                    'ويهدف الانتساب إلى توسيع دائرة المشاركة الشبابية، وإتاحة الفرصة أمام أصحاب الأفكار والمواهب للمساهمة في برامج البرلمان ومشاريعه المستقبلية.',
+                    'يدعو البرلمان جميع الشباب الفلسطيني الطموح إلى التسجيل والانضمام إلى مجتمع شبابي يسعى للتعلم والتطوير وصناعة الأثر.'
+                ]
+            },
+            {
+                title: 'برامج تدريبية نوعية في الذكاء الاصطناعي والقيادة الشبابية',
+                excerpt: 'يعمل البرلمان على تقديم برامج تدريبية متخصصة في الذكاء الاصطناعي، هندسة الأوامر، المهارات الرقمية، والقيادة الشبابية.',
+                content: [
+                    'ضمن رؤيته لبناء جيل شبابي مواكب للتطورات العالمية، يعمل البرلمان الشبابي الفلسطيني الذكي على تقديم برامج تدريبية متخصصة في الذكاء الاصطناعي، هندسة الأوامر، المهارات الرقمية، والقيادة الشبابية.',
+                    'وتهدف هذه البرامج إلى تزويد الشباب بالأدوات الحديثة التي تساعدهم على النجاح في المستقبل الرقمي.'
+                ]
+            },
+            {
+                title: 'مجتمع شبابي فلسطيني يجمع الطاقات من مختلف المحافظات',
+                excerpt: 'يواصل البرلمان العمل على بناء شبكة شبابية واسعة تضم الشباب الفلسطيني من مختلف المحافظات لتعزيز التعاون وتبادل الخبرات.',
+                content: [
+                    'يواصل البرلمان الشبابي الفلسطيني الذكي العمل على بناء شبكة شبابية واسعة تضم الشباب الفلسطيني من مختلف المحافظات، لتعزيز التعاون وتبادل الخبرات، وإطلاق مبادرات تخدم المجتمع.'
+                ]
+            }
+        ];
+
         const modal = document.getElementById('newsModal');
         const modalTitle = document.getElementById('newsModalTitle');
         const modalDate = document.getElementById('newsModalDate');
         const modalText = document.getElementById('newsModalText');
         const modalGallery = document.getElementById('newsModalGallery');
         const modalClose = document.getElementById('newsModalClose');
+        const newsList = document.getElementById('newsList');
         let lastFocusedNews = null;
 
-        function openNewsModal(card) {
-            const title = card.querySelector('h3')?.textContent || '';
-            const date = card.querySelector('.news-date')?.textContent || '';
-            const paragraphs = Array.from(card.querySelectorAll('.news-body p'));
-            const gallery = (card.dataset.gallery || '').split('|').filter(Boolean);
+        function getNewsImages(news) {
+            return news.images && news.images.length ? news.images : [placeholderImage];
+        }
 
-            lastFocusedNews = card;
-            modalTitle.textContent = title;
-            modalDate.textContent = date;
-            modalDate.style.display = date ? 'block' : 'none';
+        function renderNewsList() {
+            if (!newsList) return;
+            newsItems.forEach(function(news, index) {
+                const images = getNewsImages(news);
+                const card = document.createElement('article');
+                card.className = 'news-card';
+                card.tabIndex = 0;
+                card.setAttribute('role', 'button');
+                card.dataset.newsIndex = String(index);
+
+                const thumb = document.createElement('div');
+                thumb.className = 'news-thumb';
+                thumb.style.backgroundImage = "url('" + images[0] + "')";
+
+                const body = document.createElement('div');
+                body.className = 'news-body';
+
+                if (news.date) {
+                    const date = document.createElement('span');
+                    date.className = 'news-date';
+                    date.textContent = news.date;
+                    body.appendChild(date);
+                }
+
+                const title = document.createElement('h3');
+                title.textContent = news.title;
+                body.appendChild(title);
+
+                const excerpt = document.createElement('p');
+                excerpt.textContent = news.excerpt;
+                body.appendChild(excerpt);
+
+                card.appendChild(thumb);
+                card.appendChild(body);
+                newsList.appendChild(card);
+            });
+        }
+
+        function openNewsModal(news, trigger) {
+            const gallery = getNewsImages(news);
+
+            lastFocusedNews = trigger || null;
+            modalTitle.textContent = news.title;
+            modalDate.textContent = news.date || '';
+            modalDate.style.display = news.date ? 'block' : 'none';
             modalText.textContent = '';
-            paragraphs.forEach(function(paragraph) {
+            news.content.forEach(function(paragraph) {
                 const p = document.createElement('p');
-                p.textContent = paragraph.textContent;
+                p.textContent = paragraph;
                 modalText.appendChild(p);
             });
             modalGallery.textContent = '';
             gallery.forEach(function(src) {
                 const img = document.createElement('img');
                 img.src = src;
-                img.alt = title;
+                img.alt = news.title;
                 img.loading = 'lazy';
                 modalGallery.appendChild(img);
             });
@@ -854,17 +1095,23 @@
             if (lastFocusedNews) lastFocusedNews.focus();
         }
 
-        document.querySelectorAll('.news-card').forEach(function(card) {
-            card.addEventListener('click', function() {
-                openNewsModal(card);
+        renderNewsList();
+
+        if (newsList) {
+            newsList.addEventListener('click', function(e) {
+                const card = e.target.closest('.news-card');
+                if (!card) return;
+                openNewsModal(newsItems[Number(card.dataset.newsIndex)], card);
             });
-            card.addEventListener('keydown', function(e) {
+            newsList.addEventListener('keydown', function(e) {
                 if (e.key === 'Enter' || e.key === ' ') {
+                    const card = e.target.closest('.news-card');
+                    if (!card) return;
                     e.preventDefault();
-                    openNewsModal(card);
+                    openNewsModal(newsItems[Number(card.dataset.newsIndex)], card);
                 }
             });
-        });
+        }
 
         if (modalClose) modalClose.addEventListener('click', closeNewsModal);
         if (modal) {
@@ -873,6 +1120,10 @@
             });
         }
         document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && leaderModal && leaderModal.classList.contains('show')) {
+                closeLeaderModal();
+                return;
+            }
             if (e.key === 'Escape' && modal.classList.contains('show')) {
                 closeNewsModal();
             }
