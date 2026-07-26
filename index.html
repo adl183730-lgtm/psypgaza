@@ -525,10 +525,11 @@
             margin-top: 22px;
         }
 
-        .news-modal-gallery img {
+        .news-modal-gallery img,
+        .news-modal-gallery video {
             width: 100%;
             aspect-ratio: 16 / 10;
-            object-fit: contain;
+            object-fit: cover;
             border-radius: 12px;
             box-shadow: 0 8px 22px rgba(0, 0, 0, 0.12);
         }
@@ -1319,9 +1320,18 @@
             // Add future news here: title, optional date, excerpt, optional images, and full content.
             const newsItems = [
                 {
+                    title: 'الحملة الوطنية الفلسطينية الرقمية',
+                    images: ['/docs/news/12/1.jpeg','/docs/news/12/1.mp4'],
+                    content: [
+                        `
+                        الحملة الوطنية الفلسطينية الرقمية مبادرة وطنية شبابية تهدف إلى توظيف الإعلام الرقمي والذكاء الاصطناعي لتعزيز الرواية الفلسطينية، وإنتاج محتوى احترافي، وبناء مجتمع رقمي يسهم في خدمة القضية الفلسطينية وإيصال صوت فلسطين إلى العالم.
+                        `
+                    ]
+                },
+                {
                     title: 'إعلان | التعريف بأعضاء الهيئة التنفيذية الشبابية',
                     images: ['/docs/news/11/1.jpg'],
-                    content:[
+                    content: [
                         `
                         إعلان | التعريف بأعضاء الهيئة التنفيذية الشبابية
                         البرلمان الشبابي الفلسطيني الذكي PYSP – محافظات غزة
@@ -1346,7 +1356,7 @@
                     ]
                 },
                 {
-                    title:'🇵🇸 ياسر عرفات… رمز الهوية الوطنية وصوت القضية',
+                    title: '🇵🇸 ياسر عرفات… رمز الهوية الوطنية وصوت القضية',
                     images: ['/docs/news/10/1.jpg'],
                     content: [`
                     ضمن الحملة الوطنية الفلسطينية الرقمية 🇵🇸
@@ -1588,21 +1598,37 @@
                 modalTitle.textContent = news.title;
                 modalDate.textContent = news.date || '';
                 modalDate.style.display = news.date ? 'block' : 'none';
+
                 modalText.textContent = '';
                 news.content.forEach(function (paragraph) {
                     const p = document.createElement('p');
                     p.textContent = paragraph;
                     modalText.appendChild(p);
                 });
+
                 modalGallery.textContent = '';
+
                 gallery.forEach(function (src) {
-                    const img = document.createElement('img');
-                    img.src = src;
-                    img.alt = news.title;
-                    img.loading = 'lazy';
-                    modalGallery.appendChild(img);
+                    const isVideo = /\.(mp4|webm|ogg|mov)(\?.*)?$/i.test(src);
+
+                    if (isVideo) {
+                        const video = document.createElement('video');
+                        video.src = src;
+                        video.controls = true;
+                        video.preload = 'metadata';
+                        video.playsInline = true;
+                        modalGallery.appendChild(video);
+                    } else {
+                        const img = document.createElement('img');
+                        img.src = src;
+                        img.alt = news.title;
+                        img.loading = 'lazy';
+                        modalGallery.appendChild(img);
+                    }
                 });
+
                 modalGallery.style.display = gallery.length ? 'grid' : 'none';
+
                 modal.classList.add('show');
                 modal.setAttribute('aria-hidden', 'false');
                 document.body.style.overflow = 'hidden';
